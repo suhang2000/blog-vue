@@ -1,6 +1,6 @@
 <template>
 <div>
-  <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
+  <!-- <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
   <el-carousel :interval="3000" type="card" id="carousel">
     <el-carousel-item v-for="item in carousel" :key="item">
       <div class="demo-image">
@@ -8,7 +8,8 @@
       </div>
     </el-carousel-item>
   </el-carousel>
-  <Products class="products_area" ref="products"></Products>
+  <Products class="products_area" ref="products"></Products> -->
+  "home/index"
 </div>
 </template>
 

@@ -3,12 +3,12 @@
   <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-container" label-position="left"
            label-width="0px">
     <h3 class="login_title">登录</h3>
-    <el-form-item prop="name">
-      <el-input type="text" v-model="loginForm.name"
+    <el-form-item prop="user_id">
+      <el-input type="text" v-model="loginForm.user_id"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
-    <el-form-item prop="password">
-      <el-input type="password" v-model="loginForm.password"
+    <el-form-item prop="user_password">
+      <el-input type="password" v-model="loginForm.user_password"
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item>
@@ -35,8 +35,8 @@ export default {
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
       },
       loginForm: {
-        name: '',
-        password: ''
+        user_id: '',
+        user_password: ''
       },
       loading: false
     }
@@ -44,12 +44,16 @@ export default {
   methods: {
     user_login () {
       var _this = this
+      console.log(_this.loginForm.user_id)
       this.$axios
-        .post('/login/user', {
-          uname: this.loginForm.name,
-          password: this.loginForm.password
+        .get('/login/user', {
+          params: {
+            user_id: _this.loginForm.user_id,
+            user_password: _this.loginForm.user_password
+        }
         })
         .then(resp => {
+          console.log(resp)
           if (resp.data.code === 200) {
             _this.$store.commit('loginUser', _this.loginForm)
             const path = _this.$route.query.redirect
@@ -64,28 +68,28 @@ export default {
           this.$message('服务器异常')
         })
     },
-    saler_login () {
-      var _this = this
-      this.$axios
-        .post('/login/saler', {
-          sname: this.loginForm.name,
-          password: this.loginForm.password
-        })
-        .then(resp => {
-          if (resp.data.code === 200) {
-            _this.$store.commit('loginSaler', _this.loginForm)
-            const path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/saler/dashboard' : path})
-          } else {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
-          }
-        })
-        .catch(failResponse => {
-          this.$message('服务器异常')
-        })
-    },
+    // saler_login () {
+    //   var _this = this
+    //   this.$axios
+    //     .post('/login/saler', {
+    //       sname: this.loginForm.name,
+    //       password: this.loginForm.password
+    //     })
+    //     .then(resp => {
+    //       if (resp.data.code === 200) {
+    //         _this.$store.commit('loginSaler', _this.loginForm)
+    //         const path = _this.$route.query.redirect
+    //         _this.$router.replace({path: path === '/' || path === undefined ? '/saler/dashboard' : path})
+    //       } else {
+    //         this.$alert(resp.data.message, '提示', {
+    //           confirmButtonText: '确定'
+    //         })
+    //       }
+    //     })
+    //     .catch(failResponse => {
+    //       this.$message('服务器异常')
+    //     })
+    // },
     admin_login () {
       var _this = this
       this.$axios
@@ -118,16 +122,16 @@ export default {
         }
       })
     },
-    validate_saler_login (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.saler_login()
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
+    // validate_saler_login (formName) {
+    //   this.$refs[formName].validate((valid) => {
+    //     if (valid) {
+    //       this.saler_login()
+    //     } else {
+    //       console.log('error submit!!')
+    //       return false
+    //     }
+    //   })
+    // },
     validate_admin_login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

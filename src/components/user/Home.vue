@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Menu></Menu>
-    <router-view/>
+<!--    <Menu></Menu>-->
+<!--    <router-view/>-->
+    "home"
   </div>
 </template>
 
