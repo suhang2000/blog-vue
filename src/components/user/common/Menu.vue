@@ -14,7 +14,7 @@
                @click="logout"
                style="float:right;font-size: 20px;color: #222;padding-top: 8px;margin-top: 10px;margin-right: 20px"
                v-show="isLogin"></el-button>
-    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">SCU25-购物商城</span>
+    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">我的博客</span>
   </el-menu>
 </template>
 
@@ -24,9 +24,9 @@ export default {
   data () {
     return {
       navList: [
-        {name: 'index', navItem: '首页'},
-        {name: 'cart', navItem: '购物车'},
-        {name: 'order', navItem: '订单'},
+        {name: 'index', navItem: '主页'},
+        {name: 'cart', navItem: '博客'},
+        {name: 'order', navItem: '博客管理'},
         {name: 'userInfo', navItem: '我的信息'}
       ],
       isLogin: false,
