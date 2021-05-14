@@ -39,14 +39,14 @@ export default {
       this.$router.push('/login')
     },
     checkLogin () {
-      if (this.$store.state.user.name) {
+      if (this.$store.state.username) {
         this.isLogin = true
       }
     }
   },
   mounted () {
     this.checkLogin()
-    this.uname = this.$store.state.user.name
+    this.uname = this.$store.state.username
   }
 }
 </script>

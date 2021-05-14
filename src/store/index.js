@@ -5,7 +5,7 @@ export default new Vuex.Store({
   state: {
     // 仿照user添加admin和saler的session存储信息，然后在main.js里改认证判断
     user: {
-      user_id: window.sessionStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('user' || '[]')).user_id
+      user_name: window.sessionStorage.getItem('username' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('username' || '[]'))
     },
     // saler: {
     //   name: window.sessionStorage.getItem('saler' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('saler' || '[]')).name
@@ -15,9 +15,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    loginUser (state, user) {
-      state.user = user
-      window.sessionStorage.setItem('user', JSON.stringify(user))
+    loginUser (state, username) {
+      state.username = username
+      window.sessionStorage.setItem('username', JSON.stringify(username))
     },
     // loginSaler (state, saler) {
     //   state.saler = saler
@@ -29,10 +29,10 @@ export default new Vuex.Store({
     },
     logout (state) {
       if (state.user !== []) {
-        console.log(state.user)
-        state.user = ''
-        window.sessionStorage.removeItem('user')
-        state.user = []
+        console.log(state.username)
+        state.username = ''
+        window.sessionStorage.removeItem('username')
+        state.username = []
       }
       // if (state.saler !== []) {
       //   state.saler = ''

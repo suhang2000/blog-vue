@@ -55,7 +55,7 @@ export default {
         .then(resp => {
           console.log(resp)
           if (resp.data.code === 200) {
-            _this.$store.commit('loginUser', _this.loginForm)
+            _this.$store.commit('loginUser', _this.loginForm.user_id)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/home/index' : path})
           } else {
