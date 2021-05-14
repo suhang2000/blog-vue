@@ -22,10 +22,13 @@ import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
 import Cart from '../components/user/common/Cart'
 import Order from '../components/user/common/Order'
-import UserInfo from '../components/user/common/UserInfo'
+
 import OrderToPay from '../components/user/common/OrderToPay'
 import OrderToSend from '../components/user/common/OrderToSend'
-
+import UserInfo from '../components/user/UserInfo'
+import UserInfo1 from '../components/user/UserInfo1'
+import UserInfo2 from '../components/user/UserInfo2'
+import UserInfo3 from '../components/user/UserInfo3'
 Vue.use(Router)
 
 export default new Router({
@@ -102,6 +105,31 @@ export default new Router({
           path: '/home/userInfo',
           name: 'UserInfo',
           component: UserInfo,
+          redirect: '/home/userInfo/userInfo1',
+          children: [
+
+            {
+              path: '/home/userInfo/UserInfo1',
+              name: 'UserInfo1',
+              component: UserInfo1
+            },
+            {
+              path: '/home/userInfo/UserInfo2',
+              name: 'UserInfo2',
+              component: UserInfo2,
+              meta: {
+                requireAuth: true
+              }
+            },
+            {
+              path: '/home/userInfo/UserInfo3',
+              name: 'UserInfo3',
+              component: UserInfo3,
+              meta: {
+                requireAuth: true
+              }
+            }
+          ],
           meta: {
             requireAuth: true
           }
@@ -171,7 +199,7 @@ export default new Router({
         {
           path: '/admin/AddUser',
           name: 'AddUser',
-          component: AddUser,
+          component: AddUser
         },
         {
           path: '/admin/Selectarticle',
@@ -186,7 +214,7 @@ export default new Router({
     {
       path: '/admin/Fixuser',
       name: 'Fixuser',
-      component: Fixuser,
+      component: Fixuser
     },
     {
       path: '/admin/Fixarticle',

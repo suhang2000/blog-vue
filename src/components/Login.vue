@@ -3,12 +3,12 @@
   <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-container" label-position="left"
            label-width="0px">
     <h3 class="login_title">登录</h3>
-    <el-form-item prop="user_id">
-      <el-input type="text" v-model="loginForm.name"
+    <el-form-item prop="username">
+      <el-input type="text" v-model="loginForm.username"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="user_password">
-      <el-input type="password" v-model="loginForm.password"
+      <el-input type="password" v-model="loginForm.user_password"
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item>
@@ -35,8 +35,8 @@ export default {
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
       },
       loginForm: {
-        name: '',
-        password: ''
+        username: '',
+        user_password: ''
       },
       loading: false
     }
@@ -48,14 +48,14 @@ export default {
       this.$axios
         .get('/login/user', {
           params: {
-            username: _this.loginForm.name,
-            user_password: _this.loginForm.password
+            username: _this.loginForm.username,
+            user_password: _this.loginForm.user_password
           }
         })
         .then(resp => {
           console.log(resp)
           if (resp.data.code === 200) {
-            _this.$store.commit('loginUser', _this.loginForm)
+            _this.$store.commit('loginUser', _this.loginForm.username)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/home/index' : path})
           } else {
@@ -73,8 +73,8 @@ export default {
       this.$axios
         .get('/login/admin', {
           params: {
-            admin_id: this.loginForm.name,
-            admin_password: this.loginForm.password
+            admin_id: this.loginForm.user_id,
+            admin_password: this.loginForm.user_password
           }
         })
         .then(resp => {

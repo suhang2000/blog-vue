@@ -203,9 +203,34 @@
               }else {
                 this.$alert('delete failed!', {confirmButtonText: 'OK'})
               }
+              this.$axios
+                  .post('/select/article/page',{
+                  blog_id: this.articleform.blog_id,
+                  title: this.articleform.title,
+                  describe: this.articleform.describe,
+                  text: this.articleform.text,
+                  user_id: this.articleform.user_id,
+                  page: 1
+              }).then(resp => {
+              if (resp.data.code === 200) {
+                console.log(resp.data.data);
+                var datas = resp.data.data;
+                var i = 0;
+                var data0 = [];
+                for(var i = 0; i<datas.length - 1; i++){
+                    data0[i] = datas[i];
+                }
+                this.tableData = data0;
+                //this.pagetotal = datas[];
+                this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
+                console.log(this.pagetoal);
+              }else {
+                this.$alert('select failed!', {confirmButtonText: 'OK'})
+              }
+              })
+              .catch(failResponse => {})
             })
-            .catch(failResponse => {})
-            created();
+            .catch(failResponse => {})    
         }
     }
   }
