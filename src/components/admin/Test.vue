@@ -25,85 +25,65 @@
     <el-radio v-model="regisForm.gender" label="F">男</el-radio>
     <el-radio v-model="regisForm.gender" label="M">女</el-radio>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">添加</el-button>
+      <el-button type="primary" style="width: 40%;background: #505458;border: none"
+                 @click="validate_register('regisForm')">添加
+      </el-button>
     </el-form-item>
   </el-form>
   </body>
 </template>
 
 <script>
-    import {validatePhone, validateEmail} from '../../utils/validate'
-    export default {
-        name: 'Test',
-        data () {
-            const validatePassword = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('再次输入登陆密码！'))
-            } else if (value !== this.regisForm.password) {
-                callback(new Error('两次密码必须相同！'))
-            } else {
-                callback()
-            }
-            }
-            return {
-                rules: {
-                    username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-                    password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
-                    verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}],
-                    phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
-                },
-                regisForm: {
-                    username: '',
-                    password: '',
-                    verifypwd: '',
-                    phone: '',
-                    gender: ''
-                }
-            }
-        },
-        methods: {
-            register () {
+import {validatePhone, validateEmail} from '../../utils/validate'
+
+export default {
+  name: 'Test',
+  data () {
+    const validatePassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('再次输入登陆密码！'))
+      } else if (value !== this.regisForm.password) {
+        callback(new Error('两次密码必须相同！'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      rules: {
+        username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
+        verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}],
+        phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
+      },
+      regisForm: {
+        username: '',
+        password: '',
+        verifypwd: '',
+        phone: '',
+        gender: ''
+      }
+    }
+  },
+  methods: {
+    register () {
       var _this = this
-      this.$axios
-        .post('/register/user', {
-          username: this.regisForm.username,
-          user_password: this.regisForm.password,
-          phone_number: this.regisForm.phone,
-          gender: this.regisForm.gender
-        })
-        .then(resp => {
-          if (resp.data.code === 200) {
-            this.$alert('注册成功', '提示', {
-              confirmButtonText: '确定'
-            })
-            var path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
-          } else {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
-          }
-        })
-        .catch(failResponse => {})
-    },
-    select_by_condition() {
-      var _this = this
-      this.$axios
-        .post('/select/user', {
-          user_id: this.regisForm.user_id,
-          username: this.regisForm.username,
-          phone_number: this.regisForm.phone,
-          gender: this.regisForm.gender
-        })
-        .then(resp => {
-          if (resp.data.code === 200) {
-            this.$alert('select success!', {confirmButtonText: 'OK'})
-            console.log(resp.data.data)
-          }else {
-            this.$alert('select failed!', {confirmButtonText: 'OK'})
-          }
-        })
-        .catch(failResponse => {})
+      this.$axios.post('/register/user', {
+        username: this.regisForm.username,
+        user_password: this.regisForm.password,
+        phone_number: this.regisForm.phone,
+        gender: this.regisForm.gender
+      }).then(resp => {
+        if (resp.data.code === 200) {
+          this.$alert('添加成功', '提示', {
+            confirmButtonText: '确定'
+          })
+        } else {
+          this.$alert(resp.data.message, '提示', {
+            confirmButtonText: '确定'
+          })
+        }
+      }).catch(failResponse => {
+      })
     },
     validate_register (formName) {
       this.$refs[formName].validate((valid) => {
@@ -115,8 +95,8 @@
         }
       })
     }
-        }
-    }
+  }
+}
 </script>
 
 <style scoped>
@@ -130,11 +110,13 @@
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
   }
+
   .regis_title {
     margin: 0 auto 40px auto;
     text-align: center;
     color: #505458;
   }
+
   #paper {
     background: url("../../assets/regisBG.jpg") no-repeat center;
     height: 100%;
@@ -142,7 +124,8 @@
     background-size: cover;
     position: fixed;
   }
-  body{
+
+  body {
     margin: -5px 0;
   }
 </style>
