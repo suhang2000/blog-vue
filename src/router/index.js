@@ -7,6 +7,8 @@ import AdminIndex from '../components/admin/AdminIndex'
 import Selectuser from '../components/admin/Selectuser'
 import AddUser from '../components/admin/AddUser'
 import Fixuser from '../components/admin/Fixuser'
+import Selectarticle from '../components/admin/Selectarticle'
+import Fixarticle from '../components/admin/Fixarticle'
 
 import SalerIndex from '../components/saler/SalerIndex'
 import SalerDashboard from '../components/saler/function/dashboardIndex'
@@ -169,14 +171,27 @@ export default new Router({
         {
           path: '/admin/AddUser',
           name: 'AddUser',
-          component: AddUser
+          component: AddUser,
+        },
+        {
+          path: '/admin/Selectarticle',
+          name: 'Selectarticle',
+          component: Selectarticle,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },
     {
       path: '/admin/Fixuser',
       name: 'Fixuser',
-      component: Fixuser
+      component: Fixuser,
+    },
+    {
+      path: '/admin/Fixarticle',
+      name: 'Fixarticle',
+      component: Fixarticle
     }
   ]
 })

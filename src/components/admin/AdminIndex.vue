@@ -38,7 +38,8 @@ export default {
     return {
       navList: [
         {name: 'Selectuser', navItem: '用户信息'},
-        {name: 'AddUser', navItem: '添加用户'}
+        {name: 'AddUser', navItem: '添加用户'},
+        {name: 'Selectarticle', navItem: '文章信息'}
       ],
       regisForm: {
         user_id: '',
