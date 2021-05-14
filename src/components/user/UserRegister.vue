@@ -6,6 +6,10 @@
     <div class="block">
       <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
     </div>
+    <el-form-item>
+      <el-input type="text" v-model="regisForm.user_id"
+                auto-complete="off" placeholder="登录id"></el-input>
+    </el-form-item>
     <el-form-item prop="uname">
       <el-input type="text" v-model="regisForm.uname"
                 auto-complete="off" placeholder="登录昵称"></el-input>
@@ -22,19 +26,13 @@
       <el-input type="text" v-model="regisForm.phone"
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>
-      <el-form-item prop="email">
-      <el-input type="text" v-model="regisForm.email"
-                auto-complete="off" placeholder="邮箱（选填）"></el-input>
-    </el-form-item>
-    <el-form-item prop="address">
-      <el-input type="text" v-model="regisForm.address"
-                auto-complete="off" placeholder="地址（选填）"></el-input>
-    </el-form-item>
-    <el-radio v-model="regisForm.gender" label="男">男</el-radio>
-    <el-radio v-model="regisForm.gender" label="女">女</el-radio>
-    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" value-format="yyyy-MM-dd"></el-date-picker>
+    <el-radio v-model="regisForm.gender" label="F">男</el-radio>
+    <el-radio v-model="regisForm.gender" label="M">女</el-radio>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
+    </el-form-item>
+    <el-form-item style="width: 100%">
+      <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="select_by_condition()">查询</el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -58,19 +56,14 @@ export default{
         uname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}],
-        phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
-        email: [{required: true, validator: validateEmail, trigger: 'blur'}]
+        phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
       },
       regisForm: {
         uname: '',
         password: '',
         verifypwd: '',
         phone: '',
-        email: '',
-        address: '',
-        icon: '',
-        gender: '',
-        birthday: ''
+        gender: ''
       }
     }
   },
@@ -79,14 +72,11 @@ export default{
       var _this = this
       this.$axios
         .post('/register/user', {
-          uname: this.regisForm.uname,
-          password: this.regisForm.password,
-          phone: this.regisForm.phone,
-          email: this.regisForm.email,
-          address: this.regisForm.address,
-          icon: this.regisForm.icon,
-          gender: this.regisForm.gender,
-          birthday: this.regisForm.birthday
+          user_id: '',
+          username: this.regisForm.uname,
+          user_password: this.regisForm.password,
+          phone_number: this.regisForm.phone,
+          gender: this.regisForm.gender
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -99,6 +89,25 @@ export default{
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
             })
+          }
+        })
+        .catch(failResponse => {})
+    },
+    select_by_condition() {
+      var _this = this
+      this.$axios
+        .post('/select/user', {
+          user_id: this.regisForm.user_id,
+          username: this.regisForm.uname,
+          phone_number: this.regisForm.phone,
+          gender: this.regisForm.gender
+        })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            this.$alert('select success!', {confirmButtonText: 'OK'})
+            console.log(resp.data.data)
+          }else {
+            this.$alert('select failed!', {confirmButtonText: 'OK'})
           }
         })
         .catch(failResponse => {})

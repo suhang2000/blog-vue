@@ -17,7 +17,7 @@
       <el-button type="primary" class="el-icon-setting" style="width: 25%;background: #505458;border: none" @click="validate_admin_login('loginForm')">管理员</el-button>
     </el-form-item>
     <el-form-item>
-      <el-link :underline="false" href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
+      <el-link :underline="false" href="http://localhost:8080/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
       <!-- <el-link :underline="false" href="http://localhost:8080/#/register/saler" icon="el-icon-s-shop" type="primary">注册成为商家</el-link> -->
     </el-form-item>
     <el-link :underline="false" href="http://localhost:8080/#/pwdreset" icon="el-icon-s-help" type="warning">找回密码</el-link>
@@ -93,15 +93,17 @@ export default {
     admin_login () {
       var _this = this
       this.$axios
-        .post('/login/admin', {
-          aname: this.loginForm.name,
-          password: this.loginForm.password
+        .get('/login/admin', {
+          params:{
+            admin_id: this.loginForm.user_id,
+            admin_password: this.loginForm.user_password
+        }
         })
         .then(resp => {
           if (resp.data.code === 200) {
             _this.$store.commit('loginAdmin', _this.loginForm)
             const path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/dashboard' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/admin' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
