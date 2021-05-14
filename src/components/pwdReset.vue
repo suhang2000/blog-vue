@@ -4,11 +4,11 @@
            label-width="0px">
     <h3 class="login_title">重置密码</h3>
     <el-form-item prop="name">
-      <el-input type="text" v-model="resetForm.name"
+      <el-input type="text" v-model="resetForm.username"
                 auto-complete="off" placeholder="用户名"></el-input>
     </el-form-item>
     <el-form-item prop="phone">
-      <el-input type="text" v-model="resetForm.phone"
+      <el-input type="text" v-model="resetForm.phone_number"
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>
     <el-form-item prop="password">
@@ -33,25 +33,25 @@ import {validatePhone} from '../utils/validate'
 export default {
   name: 'reset',
   data () {
-    const validatePassword =(rule, value, callback) =>{
-      if (value === "") {
-        callback(new Error("再次输入登陆密码！"));
-      } else if (value !== this.resetForm.password) {
-        callback(new Error("两次密码必须相同！"));
+    const validatePassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('再次输入登陆密码！'))
+      } else if (value !== this.resetForm.user_password) {
+        callback(new Error('两次密码必须相同！'))
       } else {
-        callback();
+        callback()
       }
     }
     return {
       rules: {
-        name: [{required: true, message: '名称不能为空', trigger: 'blur'}],
-        phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
+        username: [{required: true, message: '名称不能为空', trigger: 'blur'}],
+        phone_number: [{required: true, validator: validatePhone, trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}]
       },
       resetForm: {
-        name: '',
-        phone: '',
+        username: '',
+        phone_number: '',
         password: '',
         verifypwd: ''
       },
@@ -62,10 +62,10 @@ export default {
     user_reset () {
       var _this = this
       this.$axios
-        .post('/pwdreset/user', {
-          uname: this.resetForm.name,
-          phone: this.resetForm.phone,
-          password: this.resetForm.password
+        .post('/resetpwd/user', {
+          username: this.resetForm.username,
+          phone_number: this.resetForm.phone_number,
+          user_password: this.resetForm.password
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -87,10 +87,10 @@ export default {
     saler_reset () {
       var _this = this
       this.$axios
-        .post('/pwdreset/saler', {
-          sname: this.resetForm.name,
-          phone: this.resetForm.phone,
-          password: this.resetForm.password
+        .post('/resetpwd/user', {
+          username: this.resetForm.name,
+          phone_number: this.resetForm.phone,
+          user_password: this.resetForm.password
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -109,25 +109,25 @@ export default {
           this.$message('服务器异常')
         })
     },
-    validate_user_reset(formName) {
+    validate_user_reset (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.user_reset()
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
-    validate_saler_reset(formName) {
+    validate_saler_reset (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.saler_reset()
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     }
   }
 }

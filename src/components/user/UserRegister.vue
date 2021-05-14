@@ -4,14 +4,14 @@
            label-width="0px" v-loading="false">
     <h3 class="regis_title">用户注册</h3>
     <div class="block">
-      <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
+      <el-avatar :size="50" profile_photo="el-profile_photo-user-solid"></el-avatar>
     </div>
     <el-form-item prop="uname">
-      <el-input type="text" v-model="regisForm.uname"
+      <el-input type="text" v-model="regisForm.username"
                 auto-complete="off" placeholder="登录昵称"></el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input type="password" v-model="regisForm.password"
+      <el-input type="password" v-model="regisForm.user_password"
                 auto-complete="off" placeholder="登录密码"></el-input>
     </el-form-item>
     <el-form-item prop="verifypwd">
@@ -19,20 +19,20 @@
                 auto-complete="off" placeholder="再次输入登录密码"></el-input>
     </el-form-item>
     <el-form-item prop="phone">
-      <el-input type="text" v-model="regisForm.phone"
+      <el-input type="text" v-model="regisForm.phone_number"
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>
-      <el-form-item prop="email">
-      <el-input type="text" v-model="regisForm.email"
-                auto-complete="off" placeholder="邮箱（选填）"></el-input>
-    </el-form-item>
-    <el-form-item prop="address">
-      <el-input type="text" v-model="regisForm.address"
-                auto-complete="off" placeholder="地址（选填）"></el-input>
-    </el-form-item>
-    <el-radio v-model="regisForm.gender" label="男">男</el-radio>
-    <el-radio v-model="regisForm.gender" label="女">女</el-radio>
-    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" value-format="yyyy-MM-dd"></el-date-picker>
+<!--      <el-form-item prop="email">-->
+<!--      <el-input type="text" v-model="regisForm.email"-->
+<!--                auto-complete="off" placeholder="邮箱（选填）"></el-input>-->
+<!--    </el-form-item>-->
+<!--    <el-form-item prop="address">-->
+<!--      <el-input type="text" v-model="regisForm.address"-->
+<!--                auto-complete="off" placeholder="地址（选填）"></el-input>-->
+<!--    </el-form-item>-->
+    <el-radio v-model="regisForm.gender" label="F">男</el-radio>
+    <el-radio v-model="regisForm.gender" label="M">女</el-radio>
+<!--    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" value-format="yyyy-MM-dd"></el-date-picker>-->
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
     </el-form-item>
@@ -40,14 +40,15 @@
   </body>
 </template>
 <script>
-import {validatePhone, validateEmail} from '../../utils/validate'
+import {validatePhone} from '../../utils/validate'
+// , validateEmail
 
 export default{
   data () {
     const validatePassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('再次输入登陆密码！'))
-      } else if (value !== this.regisForm.password) {
+      } else if (value !== this.regisForm.user_password) {
         callback(new Error('两次密码必须相同！'))
       } else {
         callback()
@@ -55,22 +56,22 @@ export default{
     }
     return {
       rules: {
-        uname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-        password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
+        username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        user_password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}],
-        phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
-        email: [{required: true, validator: validateEmail, trigger: 'blur'}]
+        phone_number: [{required: true, validator: validatePhone, trigger: 'blur'}]
+        // email: [{required: true, validator: validateEmail, trigger: 'blur'}]
       },
       regisForm: {
-        uname: '',
-        password: '',
+        username: '',
+        user_password: '',
         verifypwd: '',
-        phone: '',
-        email: '',
-        address: '',
-        icon: '',
-        gender: '',
-        birthday: ''
+        phone_number: '',
+        // email: '',
+        // address: '',
+        profile_photo: '',
+        gender: ''
+        // birthday: ''
       }
     }
   },
@@ -79,14 +80,14 @@ export default{
       var _this = this
       this.$axios
         .post('/register/user', {
-          uname: this.regisForm.uname,
-          password: this.regisForm.password,
-          phone: this.regisForm.phone,
-          email: this.regisForm.email,
-          address: this.regisForm.address,
-          icon: this.regisForm.icon,
-          gender: this.regisForm.gender,
-          birthday: this.regisForm.birthday
+          username: this.regisForm.username,
+          user_password: this.regisForm.user_password,
+          phone_number: this.regisForm.phone,
+          // email: this.regisForm.email,
+          // address: this.regisForm.address,
+          profile_photo: this.regisForm.profile_photo,
+          gender: this.regisForm.gender
+          // birthday: this.regisForm.birthday
         })
         .then(resp => {
           if (resp.data.code === 200) {
