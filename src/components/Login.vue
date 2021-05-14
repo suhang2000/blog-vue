@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     user_login () {
-      const _this = this;
+      const _this = this
       console.log(_this.loginForm.user_id)
       this.$axios
         .get('/login/user', {
@@ -91,13 +91,13 @@ export default {
     //     })
     // },
     admin_login () {
-      const _this = this;
+      const _this = this
       this.$axios
         .get('/login/admin', {
-          params:{
+          params: {
             admin_id: this.loginForm.user_id,
             admin_password: this.loginForm.user_password
-        }
+          }
         })
         .then(resp => {
           if (resp.data.code === 200) {

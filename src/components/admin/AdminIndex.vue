@@ -4,7 +4,10 @@
     <el-menu  router>
       <el-submenu  index="7">
          <template slot="title">Admin</template>
-         <el-menu-item v-for="(item,index) in $router.options.routes[7].children" :key="index" :index="item.path">{{item.name}}</el-menu-item>
+            <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+              {{ item.navItem }}
+            </el-menu-item>
+<!--         <el-menu-item v-for="(item,index) in $router.options.routes[7].children" :key="index" :index="item.path">{{item.name}}</el-menu-item>-->
       </el-submenu>
     </el-menu>
   </el-aside>
@@ -30,26 +33,30 @@
 </style>
 
 <script>
-  export default {
-      data() {
-          return {
-              regisForm: {
-                  user_id: '',
-                  uname: '',
-                  password: '',
-                  phone: '',
-                  gender: ''
-              },
-              tableData: [{
-                  user_id: '',
-                  username: '',
-                  phone: '',
-                  gender: ''
-              }]
-          }
+export default {
+  data () {
+    return {
+      navList: [
+        {name: 'Selectuser', navItem: '用户信息'},
+        {name: 'AddUser', navItem: '添加用户'}
+      ],
+      regisForm: {
+        user_id: '',
+        uname: '',
+        password: '',
+        phone: '',
+        gender: ''
       },
-      created: function () {
-          this.$router.push({path: "/admin/Selectuser"});
-      }
+      tableData: [{
+        user_id: '',
+        username: '',
+        phone: '',
+        gender: ''
+      }]
+    }
+  },
+  created: function () {
+    this.$router.push({path: '/admin/Selectuser'})
   }
+}
 </script>

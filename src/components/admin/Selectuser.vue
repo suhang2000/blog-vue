@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row :gutter="20">
+    <el-row :gutter="30">
      <el-col :span="3">
       <el-input v-model="regisForm.user_id" maxlength="5" show-word-limit placeholder="请输入ID"></el-input>
      </el-col>
@@ -20,7 +20,7 @@
     <el-table
     :data="tableData"
     border
-    style="width: 73%">
+    style="width: 100%">
     <el-table-column
       fixed
       prop="user_id"
@@ -61,130 +61,120 @@
 </template>
 
 <style>
-  .el-select .el-input {
-    width: 260px;
-  }
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .el-col {
-    border-radius: 4px;
-  }
 </style>
 
 <script>
-  export default {
-      name: "Selectuser",
-    data() {
-      return {
-          pagetotal: 10,
-          pagesize: 2,
-          regisForm: {
-          user_id: '',
-          uname: '',
-          password: '',
-          phone: '',
-          gender: ''
-          },
-          tableData: [{
-            user_id: '',
-            username: '',
-            phone_number: '',
-            gender:''
-          }]
-      }
-    },
-      created: function(){
-           this.$axios
-               .post('/select/user/page',{
-              user_id: this.regisForm.user_id,
-              username: this.regisForm.uname,
-              phone_number: this.regisForm.phone,
-              gender: this.regisForm.gender,
-              page: 1
-          }).then(resp => {
+export default {
+  name: 'Selectuser',
+  data () {
+    return {
+      pagetotal: 10,
+      pagesize: 10,
+      regisForm: {
+        user_id: '',
+        uname: '',
+        password: '',
+        phone: '',
+        gender: ''
+      },
+      tableData: [{
+        user_id: '',
+        username: '',
+        phone_number: '',
+        gender: ''
+      }]
+    }
+  },
+  created: function () {
+    this.load_user()
+  },
+  methods: {
+    load_user () {
+      this.$axios
+        .post('/select/user/page', {
+          user_id: this.regisForm.user_id,
+          username: this.regisForm.uname,
+          phone_number: this.regisForm.phone,
+          gender: this.regisForm.gender,
+          page: 1
+        }).then(resp => {
           if (resp.data.code === 200) {
-            console.log(resp.data.data);
-            var datas = resp.data.data;
-            var i = 0;
-            var data0 = [];
-            for(var i = 0; i<datas.length - 1; i++){
-                data0[i] = datas[i];
+            console.log(resp.data.data)
+            const datas = resp.data.data
+            let i = 0
+            const data0 = []
+            for (i = 0; i < datas.length - 1; i++) {
+              data0[i] = datas[i]
             }
-            this.tableData = data0;
-            //this.pagetotal = datas[];
-            this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
-            console.log(this.pagetoal);
-          }else {
+            this.tableData = data0
+            // this.pagetotal = datas[];
+            this.pagetotal = this.pagesize * parseInt(datas[datas.length - 1]['total'])
+            console.log(this.pagetotal)
+          } else {
             this.$alert('select failed!', {confirmButtonText: 'OK'})
           }
         })
         .catch(failResponse => {})
-      },
-    methods: {
-      select_by_condition() {
-      var _this = this;
+    },
+    select_by_condition () {
+      const _this = this
       this.$axios
         .post('/select/user', {
-          user_id: this.regisForm.user_id,
-          username: this.regisForm.uname,
-          phone_number: this.regisForm.phone,
-          gender: this.regisForm.gender
+          user_id: _this.regisForm.user_id,
+          username: _this.regisForm.uname,
+          phone_number: _this.regisForm.phone,
+          gender: _this.regisForm.gender
         })
         .then(resp => {
           if (resp.data.code === 200) {
             this.$alert('select success!', {confirmButtonText: 'OK'})
-            console.log(resp.data.data);
-            var datas = resp.data.data;
-            var i = 0;
-            console.log(datas[1]);
-            this.tableData = datas;
-          }else {
+            console.log(resp.data.data)
+            const datas = resp.data.data
+            console.log(datas[1])
+            this.tableData = datas
+          } else {
             this.$alert('select failed!', {confirmButtonText: 'OK'})
           }
         })
         .catch(failResponse => {})
-      },
-        page(currentPage){
-          this.$axios.post('/select/user/page',{
-              user_id: this.regisForm.user_id,
-              username: this.regisForm.uname,
-              phone_number: this.regisForm.phone,
-              gender: this.regisForm.gender,
-              page: currentPage
-          }).then(resp => {
-          if (resp.data.code === 200) {
-            console.log(resp.data.data);
-            var datas = resp.data.data;
-            var i = 0;
-            var data0 = [];
-            for(var i = 0; i<datas.length - 1; i++){
-                data0[i] = datas[i];
-            }
-            this.tableData = data0;
-            //this.pagetotal = datas[];
-            this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
-            console.log(this.pagetoal);
-          }else {
-            this.$alert('select failed!', {confirmButtonText: 'OK'})
+    },
+    page (currentPage) {
+      this.$axios.post('/select/user/page', {
+        user_id: this.regisForm.user_id,
+        username: this.regisForm.uname,
+        phone_number: this.regisForm.phone,
+        gender: this.regisForm.gender,
+        page: currentPage
+      }).then(resp => {
+        if (resp.data.code === 200) {
+          console.log(resp.data.data)
+          const datas = resp.data.data
+          let i = 0
+          const data0 = []
+          for (i = 0; i < datas.length - 1; i++) {
+            data0[i] = datas[i]
           }
-        })
-        .catch(failResponse => {})
-        },
-        cleandata(){
-          this.regisForm.gender = '';
-          this.regisForm.phone = '';
-          this.regisForm.uname = '';
-          this.regisForm.user_id = '';
-        },
-        handleEdit: function (index, row) {
-          console.log(row);
-          this.$router.push({path: '/admin/Fixuser', query: {data: row}});
+          this.tableData = data0
+          // this.pagetotal = datas[];
+          this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total'])
+          console.log(this.pagetoal)
+        } else {
+          this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
+      })
+        .catch(failResponse => {})
+    },
+    cleandata () {
+      this.regisForm.gender = ''
+      this.regisForm.phone = ''
+      this.regisForm.uname = ''
+      this.regisForm.user_id = ''
+      this.load_user()
+    },
+    handleEdit: function (index, row) {
+      console.log(row)
+      this.$router.push({path: '/admin/Fixuser', query: {data: row}})
     }
   }
+}
 </script>
-

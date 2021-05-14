@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import {validatePhone, validateEmail} from '../../utils/validate'
+import {validatePhone} from '../../utils/validate'
 
 export default {
-  name: 'Test',
+  name: 'AddUser',
   data () {
     const validatePassword = (rule, value, callback) => {
       if (value === '') {
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     register () {
-      var _this = this
+      const _this = this
       this.$axios.post('/register/user', {
         username: this.regisForm.username,
         user_password: this.regisForm.password,
