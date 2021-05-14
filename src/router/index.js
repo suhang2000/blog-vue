@@ -5,10 +5,8 @@ import PwdReset from '../components/pwdReset'
 
 import AdminIndex from '../components/admin/AdminIndex'
 import Selectuser from '../components/admin/Selectuser'
-import Test from '../components/admin/Test'
-import  Fixuser from '../components/admin/Fixuser'
-import Selectarticle from "../components/admin/Selectarticle"
-import Fixarticle from "../components/admin/Fixarticle"
+import AddUser from '../components/admin/AddUser'
+import Fixuser from '../components/admin/Fixuser'
 
 import SalerIndex from '../components/saler/SalerIndex'
 import SalerDashboard from '../components/saler/function/dashboardIndex'
@@ -29,7 +27,6 @@ import OrderToSend from '../components/user/common/OrderToSend'
 Vue.use(Router)
 
 export default new Router({
-  mode: "history",
   routes: [
     {
       path: '/',
@@ -155,7 +152,7 @@ export default new Router({
     },
     {
       path: '/admin',
-      name: 'Admin',
+      name: 'admin',
       component: AdminIndex,
       // meta: {
       //   requireAuth: true
@@ -163,36 +160,23 @@ export default new Router({
       children: [
         {
           path: '/admin/Selectuser',
-          name: 'SelectUser',
+          name: 'Selectuser',
           component: Selectuser,
-          //meta: {
-            //requireAuth: true
-          //}
+          meta: {
+            requireAuth: true
+          }
         },
         {
-          path: "/admin/Test",
-          name: 'Test',
-          component: Test,
-        },
-        {
-          path: '/admin/Selectarticle',
-          name: 'Selectarticle',
-          component: Selectarticle
-          //meta: {
-            //requireAuth: true
-          //}
+          path: '/admin/AddUser',
+          name: 'AddUser',
+          component: AddUser
         }
       ]
     },
     {
       path: '/admin/Fixuser',
       name: 'Fixuser',
-      component: Fixuser,
-    },
-    {
-      path: '/admin/Fixarticle',
-      name: 'Fixarticle',
-      component: Fixarticle
+      component: Fixuser
     }
   ]
 })

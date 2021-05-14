@@ -4,15 +4,15 @@
            label-width="0px">
     <h3 class="login_title">重置密码</h3>
     <el-form-item prop="name">
-      <el-input type="text" v-model="resetForm.username"
+      <el-input type="text" v-model="resetForm.name"
                 auto-complete="off" placeholder="用户名"></el-input>
     </el-form-item>
-    <el-form-item prop="phone">
-      <el-input type="text" v-model="resetForm.phone_number"
-                auto-complete="off" placeholder="电话号码"></el-input>
+    <el-form-item prop="password_now">
+      <el-input type="text" v-model="resetForm.password_now"
+                auto-complete="off" placeholder="当前密码"></el-input>
     </el-form-item>
-    <el-form-item prop="password">
-      <el-input type="password" v-model="resetForm.password"
+    <el-form-item prop="password_new">
+      <el-input type="password" v-model="resetForm.password_new"
                 auto-complete="off" placeholder="新密码" show-password></el-input>
     </el-form-item>
     <el-form-item prop="verifypwd">
@@ -21,14 +21,14 @@
     </el-form-item>
     <el-row>
       <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" @click="validate_user_reset('resetForm')">用户</el-button>
-      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" @click="validate_saler_reset('resetForm')">商家</el-button>
+<!--      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" @click="validate_saler_reset('resetForm')">商家</el-button>-->
     </el-row>
   </el-form>
   </body>
 </template>
 
 <script>
-import {validatePhone} from '../utils/validate'
+// import {validatePhone} from '../utils/validate'
 
 export default {
   name: 'reset',
@@ -36,7 +36,7 @@ export default {
     const validatePassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('再次输入登陆密码！'))
-      } else if (value !== this.resetForm.user_password) {
+      } else if (value !== this.resetForm.password_new) {
         callback(new Error('两次密码必须相同！'))
       } else {
         callback()
@@ -44,15 +44,15 @@ export default {
     }
     return {
       rules: {
-        username: [{required: true, message: '名称不能为空', trigger: 'blur'}],
-        phone_number: [{required: true, validator: validatePhone, trigger: 'blur'}],
-        password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
+        name: [{required: true, message: '名称不能为空', trigger: 'blur'}],
+        password_now: [{required: true, message: '请输入当前密码', trigger: 'blur'}],
+        password_new: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}]
       },
       resetForm: {
-        username: '',
-        phone_number: '',
-        password: '',
+        name: '',
+        password_now: '',
+        password_new: '',
         verifypwd: ''
       },
       loading: false
@@ -63,9 +63,9 @@ export default {
       var _this = this
       this.$axios
         .post('/resetpwd/user', {
-          username: this.resetForm.username,
-          phone_number: this.resetForm.phone_number,
-          user_password: this.resetForm.password
+          username: this.resetForm.name,
+          password_now: this.resetForm.password_now,
+          user_password: this.resetForm.password_new
         })
         .then(resp => {
           if (resp.data.code === 200) {

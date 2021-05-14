@@ -23,10 +23,10 @@ Vue.use(ElementUI)
 //     const userPathList = ['/home/cart', '/home/order', '/home/orderToPay', '/home/orderToSend', '/home/userInfo']
 //     const salerPathList = ['/saler/dashboard', '/saler/order', '/saler/product', '/saler/salerinfo']
 //     const adminPathList = ['/admin/dashboard', '/admin/product', '/admin/user', '/admin/saler', '/admin/order', '/admin/admininfo', '/admin/register', '/admin/pwdreset']
-//     console.log(userPathList.indexOf(to.path) !== -1 && store.state.user.name !== '')
+//     console.log(userPathList.indexOf(to.path) !== -1 && store.state.username !== '')
 //     console.log(salerPathList.indexOf(to.path) !== -1 && store.state.saler.name !== '')
 //     console.log(adminPathList.indexOf(to.path) !== -1 && store.state.admin.name !== '')
-//     if (userPathList.indexOf(to.path) !== -1 && store.state.user.name !== '') {
+//     if (userPathList.indexOf(to.path) !== -1 && store.state.username !== '') {
 //       console.log('user')
 //       flag = true
 //       next()
@@ -47,7 +47,7 @@ Vue.use(ElementUI)
 //         query: {redirect: to.fullPath}
 //       })
 //     }
-//     // if (store.state.user.name || store.state.saler.name || store.state.admin.name) {
+//     // if (store.state.username || store.state.saler.name || store.state.admin.name) {
 //     //   next()
 //     // } else {
 //     //   next({

@@ -4,13 +4,13 @@
            label-width="0px" v-loading="false">
     <h3 class="regis_title">用户注册</h3>
     <div class="block">
-      <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
+      <el-avatar :size="50" icon="el-icon-solid"></el-avatar>
     </div>
-    <el-form-item prop="uname">
+    <el-form-item prop="username">
       <el-input type="text" v-model="regisForm.username"
-                auto-complete="off" placeholder="登录昵称"></el-input>
+                auto-complete="off" placeholder="用户名"></el-input>
     </el-form-item>
-    <el-form-item prop="password">
+    <el-form-item prop="user_password">
       <el-input type="password" v-model="regisForm.user_password"
                 auto-complete="off" placeholder="登录密码"></el-input>
     </el-form-item>
@@ -18,7 +18,7 @@
       <el-input type="password" v-model="regisForm.verifypwd"
                 auto-complete="off" placeholder="再次输入登录密码"></el-input>
     </el-form-item>
-    <el-form-item prop="phone">
+    <el-form-item prop="phone_number">
       <el-input type="text" v-model="regisForm.phone_number"
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>

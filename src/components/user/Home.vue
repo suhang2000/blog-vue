@@ -7,13 +7,13 @@
 
 <script>
 import Menu from './common/Menu'
+
 export default {
   name: 'Home',
   components: {Menu},
   data () {
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 

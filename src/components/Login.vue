@@ -4,11 +4,11 @@
            label-width="0px">
     <h3 class="login_title">登录</h3>
     <el-form-item prop="user_id">
-      <el-input type="text" v-model="loginForm.user_id"
+      <el-input type="text" v-model="loginForm.name"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="user_password">
-      <el-input type="password" v-model="loginForm.user_password"
+      <el-input type="password" v-model="loginForm.password"
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item>
@@ -17,7 +17,7 @@
       <el-button type="primary" class="el-icon-setting" style="width: 25%;background: #505458;border: none" @click="validate_admin_login('loginForm')">管理员</el-button>
     </el-form-item>
     <el-form-item>
-      <el-link :underline="false" href="http://localhost:8080/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
+      <el-link :underline="false" href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
       <!-- <el-link :underline="false" href="http://localhost:8080/#/register/saler" icon="el-icon-s-shop" type="primary">注册成为商家</el-link> -->
     </el-form-item>
     <el-link :underline="false" href="http://localhost:8080/#/pwdreset" icon="el-icon-s-help" type="warning">找回密码</el-link>
@@ -35,21 +35,21 @@ export default {
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
       },
       loginForm: {
-        user_id: '',
-        user_password: ''
+        name: '',
+        password: ''
       },
       loading: false
     }
   },
   methods: {
     user_login () {
-      const _this = this;
-      console.log(_this.loginForm.user_id)
+      const _this = this
+      console.log(_this.loginForm.username)
       this.$axios
         .get('/login/user', {
           params: {
-            user_id: _this.loginForm.user_id,
-            user_password: _this.loginForm.user_password
+            username: _this.loginForm.name,
+            user_password: _this.loginForm.password
           }
         })
         .then(resp => {
@@ -68,36 +68,14 @@ export default {
           this.$message('服务器异常')
         })
     },
-    // saler_login () {
-    //   var _this = this
-    //   this.$axios
-    //     .post('/login/saler', {
-    //       sname: this.loginForm.name,
-    //       password: this.loginForm.password
-    //     })
-    //     .then(resp => {
-    //       if (resp.data.code === 200) {
-    //         _this.$store.commit('loginSaler', _this.loginForm)
-    //         const path = _this.$route.query.redirect
-    //         _this.$router.replace({path: path === '/' || path === undefined ? '/saler/dashboard' : path})
-    //       } else {
-    //         this.$alert(resp.data.message, '提示', {
-    //           confirmButtonText: '确定'
-    //         })
-    //       }
-    //     })
-    //     .catch(failResponse => {
-    //       this.$message('服务器异常')
-    //     })
-    // },
     admin_login () {
-      const _this = this;
+      const _this = this
       this.$axios
         .get('/login/admin', {
-          params:{
-            admin_id: this.loginForm.user_id,
-            admin_password: this.loginForm.user_password
-        }
+          params: {
+            admin_id: this.loginForm.name,
+            admin_password: this.loginForm.password
+          }
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -124,16 +102,6 @@ export default {
         }
       })
     },
-    // validate_saler_login (formName) {
-    //   this.$refs[formName].validate((valid) => {
-    //     if (valid) {
-    //       this.saler_login()
-    //     } else {
-    //       console.log('error submit!!')
-    //       return false
-    //     }
-    //   })
-    // },
     validate_admin_login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
