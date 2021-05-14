@@ -2,7 +2,7 @@
   <div style="margin-bottom: 30px;display: flex;justify-content: center;align-items: center">
     <el-input
       @keyup.enter.native="searchClick"
-      placeholder="输入商品名或商品信息搜索..."
+      placeholder="输入博客标题或博客内容搜索..."
       prefix-icon="el-icon-search"
       style="width: 400px;margin-right: 10px;margin-top: 20px"
       v-model="keywords">

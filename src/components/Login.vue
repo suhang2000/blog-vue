@@ -43,14 +43,14 @@ export default {
   },
   methods: {
     user_login () {
-      var _this = this
+      const _this = this;
       console.log(_this.loginForm.user_id)
       this.$axios
         .get('/login/user', {
           params: {
             user_id: _this.loginForm.user_id,
             user_password: _this.loginForm.user_password
-        }
+          }
         })
         .then(resp => {
           console.log(resp)
@@ -91,7 +91,7 @@ export default {
     //     })
     // },
     admin_login () {
-      var _this = this
+      const _this = this;
       this.$axios
         .get('/login/admin', {
           params:{
