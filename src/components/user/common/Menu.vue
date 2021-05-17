@@ -26,7 +26,7 @@ export default {
       navList: [
         {name: 'index', navItem: '主页'},
         {name: 'cart', navItem: '博客'},
-        {name: 'order', navItem: '博客管理'},
+        {name: 'selectarticle', navItem: '博客管理'},
         {name: 'userInfo', navItem: '我的信息'}
       ],
       isLogin: false,

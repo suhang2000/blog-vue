@@ -64,28 +64,31 @@ export default new Router({
         {
           path: '/home/index',
           name: 'Index',
-          component: Index
+          component: Index,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/home/cart',
           name: 'Cart',
-          component: Cart,
+          component: Index,
           meta: {
             requireAuth: true
           }
         },
         {
-          path: '/home/order',
-          name: 'Order',
-          component: Order,
+          path: '/home/selectarticle',
+          name: 'selectarticle',
+          component: Selectarticle,
           meta: {
             requireAuth: true
           }
         },
         {
-          path: '/home/orderToPay',
-          name: 'OrderToPay',
-          component: OrderToPay,
+          path: '/home/fixarticle',
+          name: 'fixarticle',
+          component: Fixarticle,
           meta: {
             requireAuth: true
           }
