@@ -41,6 +41,9 @@ export default {
       loading: false
     }
   },
+  activated: function() {
+ this.getCase()
+ },
   methods: {
     user_login () {
       const _this = this
@@ -68,6 +71,28 @@ export default {
           this.$message('服务器异常')
         })
     },
+    // saler_login () {
+    //   var _this = this
+    //   this.$axios
+    //     .post('/login/saler', {
+    //       sname: this.loginForm.name,
+    //       password: this.loginForm.password
+    //     })
+    //     .then(resp => {
+    //       if (resp.data.code === 200) {
+    //         _this.$store.commit('loginSaler', _this.loginForm)
+    //         const path = _this.$route.query.redirect
+    //         _this.$router.replace({path: path === '/' || path === undefined ? '/saler/dashboard' : path})
+    //       } else {
+    //         this.$alert(resp.data.message, '提示', {
+    //           confirmButtonText: '确定'
+    //         })
+    //       }
+    //     })
+    //     .catch(failResponse => {
+    //       this.$message('服务器异常')
+    //     })
+    // },
     admin_login () {
       const _this = this
       this.$axios
@@ -102,6 +127,16 @@ export default {
         }
       })
     },
+    // validate_saler_login (formName) {
+    //   this.$refs[formName].validate((valid) => {
+    //     if (valid) {
+    //       this.saler_login()
+    //     } else {
+    //       console.log('error submit!!')
+    //       return false
+    //     }
+    //   })
+    // },
     validate_admin_login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

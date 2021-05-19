@@ -11,8 +11,19 @@ import Menu from './common/Menu'
 export default {
   name: 'Home',
   components: {Menu},
-  data () {
+   provide(){
+    return {
+      reload: this.reload
+    }
   },
+
+  data(){
+    return {
+      isRouterAlive: true
+    }
+  },
+
+
   methods: {}
 }
 </script>
