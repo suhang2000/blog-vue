@@ -1,18 +1,25 @@
 <template >
-<el-card class="box-card"  >
+  <div>
+  <div class="background">
+    <img :src="imgSrc" width="100%" height="100%" alt="" />
+  </div>
+  <div class="front">
+      <el-card  style lang="scss" class="box-card  "  >
   <div slot="header" class="clearfix" >
+    <el-divider direction="vertical"></el-divider>
+    <i class="el-icon-edit-outline"></i> <el-divider direction="vertical"></el-divider> <el-divider direction="vertical"></el-divider>
     <span style="font-size:20px">这是{{datas.username}}的个人信息</span>
   </div>
-  <div class="text item">
-  用户昵称：{{datas.username}}<el-button type="info" round  @click="open">修改</el-button>
+  <div class="text item"><i class="el-icon-user-solid"></i> <el-divider direction="vertical"></el-divider>
+  用户昵称：{{datas.username}}<el-button style="float: right;padding:12px" size = "small" type="info" round  @click="open">修改</el-button>
   </div>
-  <div class="text item">
-  用户性别：{{datas.gender}} <el-button type="info" round  @click="open1">修改</el-button>
+  <div class="text item"><i class="el-icon-s-check"></i> <el-divider direction="vertical"></el-divider>
+  用户性别：{{datas.gender}} <el-button style="float: right;padding:12px" size = "small" type="info" round  @click="open1">修改</el-button>
   </div>
-  <div class="text item">
-  用户电话：{{datas.phone_number}}  <el-button type="info" round  @click="open2">修改</el-button>
+  <div class="text item"><i class="el-icon-phone"></i> <el-divider direction="vertical"></el-divider>
+  用户电话：{{datas.phone_number}}  <el-button style="float: right;padding:12px" size = "small" type="info" round  @click="open2">修改</el-button>
   </div>
-  <div class="text item">用户头像：
+  <div class="text item"><i class="el-icon-picture"></i> <el-divider direction="vertical"></el-divider>用户头像：
   <div class="demo-image">
   <div class="block" v-for="fit in fits" :key="fit">
     <span class="demonstration"></span>
@@ -26,12 +33,14 @@
   class="upload-demo"
   action="https://jsonplaceholder.typicode.com/posts/"
   :on-change="handleChange"
-  :file-list="fileListaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
-  <el-button size="small" type="primary">点击上传</el-button>
+  :file-list="fileList">
+  <el-button size="small" type="info" round>修改</el-button>
   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 </el-upload>
   </div>
 </el-card>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -39,7 +48,8 @@ export default {
   name: 'UserInfo1',
   data () {
     return {
-       fileList: {name: 'food.jpeg', url: ''},
+      imgSrc:require('../../assets/user/info_bg1.jpg'),
+       fileList: {name: '', url: ''},
       datas: {
         username: '',
         gender: '',
@@ -77,20 +87,17 @@ export default {
     },
      handleChange(file, fileList) {
       const _this = this
-        this.fileList = fileList.slice(-3);
+        this.fileList = fileList
+       console.log(file)
+        this.datas.profile_photo = URL.createObjectURL(file.raw)
+       console.log(this.datas.profile_photo)
         this.$axios.get('/changephoto', {
             params: {
-              photo: fileList.name,
+              photo: file.name,
               username: this.$store.state.username
             }
           })
             .then(resp => {
-              if (resp.data.code === 400) {
-                this.$message({
-                  type: 'warning',
-                  message: resp.data.message
-                })
-              }
               if (resp.data.code === 200) {
                 _this.datas.profile_photo = resp.data.data[0].profile_photo
                 _this.$router.replace('/home/userInfo/UserInfo1')
@@ -164,7 +171,8 @@ export default {
             type: 'info',
             message: '性别不能为空'
           })
-        } else if (value) {
+        }
+        else if (value) {
           this.$axios.get('/changegender', {
             params: {
               value: value,
@@ -189,7 +197,10 @@ export default {
               }
             })
             .catch(failResponse => {
-              this.$message('服务器异常')
+              this.$message({
+                  type: 'warning',
+                  message: '请输入“F”或“M”'
+                })
             })
         }
       }).catch(() => {
@@ -255,6 +266,9 @@ export default {
 </script>
 
 <style>
+ .bg-purple-light {
+    background: #e5e9f2;
+  }
   .text {
     font-size: 18px;
   }
@@ -273,26 +287,26 @@ export default {
   }
 
   .box-card {
+    min-width: 380px;
+    margin-right: -500px;
+    margin-top: 0%;
     height: 580px;
     width: 700px;
+    background: transparent !important;
+
+  }
+
+.background{
+    width:80%;
+    height:80%;  /**宽高100%是为了图片铺满屏幕 */
+    z-index:-1;
     position: absolute;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%,-50%);
-  }
+}
 
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
+.front{
+    z-index:1;
+    position: absolute;
 
-  .clearfix:after {
-      clear: both
-  }
-  .content{
-    display: inline-block;
-    vertical-align: middle
-  }
+}
 
 </style>
