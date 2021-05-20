@@ -110,11 +110,12 @@
     created(){
           let _this = this;
           try{
-            if (JSON.stringify(_this.$store.state.username.name)!='{}') {
+            if (JSON.stringify(_this.$store.state.username)!='{}') {
               _this.isuser=true;
-              _this.articleform.username=_this.$store.state.username.name;
+              _this.articleform.username=_this.$store.state.username;
             }
           }catch(exception){
+            alert("no username")
             console.log("no username")
           }
           _this.$axios

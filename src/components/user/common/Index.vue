@@ -67,7 +67,7 @@ export default {
       var datas;
       this.$axios
         .post('/select/user', {
-          username: _this.$store.state.username.name
+          username: _this.$store.state.username
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -91,7 +91,7 @@ export default {
       if(_this.isall){
         unm='';
       }else{
-        unm=_this.$store.state.username.name;
+        unm=_this.$store.state.username;
         hcd='username';
       }
         _this.$axios
@@ -143,7 +143,7 @@ export default {
       if(_this.isall){
         unm=_this.$refs.searchBar.keywords;
       }else{
-        unm=_this.$store.state.username.name;
+        unm=_this.$store.state.username;
         hcd='username';
       }
       _this.$axios.post('/select/article/page',{

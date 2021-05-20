@@ -145,6 +145,7 @@ export default {
       }
 
       if(this.isnew){
+        this.getCurrentTime();
         this.$axios.post('/add/article', {
                 title: this.articleform.title,
                 describe: this.articleform.describe,
@@ -154,7 +155,7 @@ export default {
             }).then(resp => {
           if (resp.data.code === 200) {
             this.$alert(resp.data.message, {confirmButtonText: 'OK'});
-            this.$router.push({path: "/home"});
+            this.$router.push({path: "/home/cart"});
           }else {
             this.$alert('发布失败! 原因: '+resp.data.message, {confirmButtonText: 'OK'})
           }
