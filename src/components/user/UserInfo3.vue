@@ -1,16 +1,28 @@
 <template>
-  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-  <el-form-item label="密码" prop="pass">
-    <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+  <div>
+  <div class="background">
+    <img :src="imgSrc" width="100%" height="100%" alt="" />
+  </div>
+  <div class="front">
+
+     <span></span>
+     <el-divider></el-divider>
+    <el-form :model="ruleForm"  status-icon :rules="rules" ref="ruleForm" label-width="500px" class="demo-ruleForm">
+  <el-form-item  label="密码" prop="pass">
+    <el-input style="background-color: transparent"  type="password" v-model="ruleForm.pass" autocomplete="off"></el-input><i class="el-icon-lock"></i>
   </el-form-item>
+      <el-divider></el-divider>
   <el-form-item label="确认密码" prop="checkPass">
-    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input><i class="el-icon-lock"></i>
   </el-form-item>
   <el-form-item>
-    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-    <el-button @click="resetForm('ruleForm')">重置</el-button>
+    <el-button  @click="submitForm('ruleForm')"size = "small" type="info" round>提交</el-button>
+    <el-button @click="resetForm('ruleForm')"size = "small" type="info" round>重置</el-button>
   </el-form-item>
 </el-form>
+    </div>
+    </div>
+
 </template>
 
 <script>
@@ -53,6 +65,7 @@ export default {
       }
     }
     return {
+       imgSrc:require('../../assets/user/info_bg1.jpg'),
       activeNames: ['1'],
       datas: {
         username: ''
@@ -136,8 +149,21 @@ export default {
       })
   }
 }
+
 </script>
 
-<style scoped>
+<style >
+.background{
+    width:80%;
+    height:80%;  /**宽高100%是为了图片铺满屏幕 */
+    z-index:-1;
+    position: absolute;
+}
+
+.front{
+    z-index:1;
+    position: absolute;
+
+}
 
 </style>
