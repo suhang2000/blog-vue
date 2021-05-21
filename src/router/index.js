@@ -21,6 +21,8 @@ import UserInfo from '../components/user/UserInfo'
 import UserInfo1 from '../components/user/UserInfo1'
 import UserInfo2 from '../components/user/UserInfo2'
 import UserInfo3 from '../components/user/UserInfo3'
+
+import Page404 from '../components/404'
 Vue.use(Router)
 
 export default new Router({
@@ -166,6 +168,16 @@ export default new Router({
       path: '/admin/Fixarticle',
       name: 'Fixarticle',
       component: Fixarticle
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: Page404
+    },
+    {
+      path: '*',
+      name: '404',
+      redirect: '/404'
     }
   ]
 })
