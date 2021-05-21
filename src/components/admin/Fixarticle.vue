@@ -1,8 +1,10 @@
-  <!--<template>
+  <template>
   <div>
+    <br>
     <quillEditor
       v-model="articleform.title"
       ref="myQuillEditor1"
+      style="margin:0 auto; width:70%"
       :options="titleeditorOption"
       @change="onEditorChange($event)"
     >
@@ -12,6 +14,7 @@
     <quillEditor
       v-model="articleform.describe"
       ref="myQuillEditor2"
+      style="margin:0 auto; width:70%"
       :options="describeeditorOption"
       @change="onEditorChange($event)"
     >
@@ -22,7 +25,7 @@
       v-model="articleform.text"
       ref="myQuillEditor"
       :options="editorOption"
-      style="height:400px"
+      style="margin:0 auto; width:70%; height:400px"
       @change="onEditorChange($event)"
     >
     </quillEditor>
@@ -147,8 +150,8 @@ export default {
       if(this.isnew){
         this.getCurrentTime();
         this.$axios.post('/add/article', {
-                title: this.articleform.title,
-                describe: this.articleform.describe,
+                title: this.articleform.title.replace(/<[^>]+>/g,""),
+                describe: this.articleform.describe.replace(/<[^>]+>/g,""),
                 text: this.articleform.text,
                 user_id: this.user_id,
                 public_time: this.gettime
@@ -163,8 +166,8 @@ export default {
         .catch(failResponse => {})
       }else{
         this.$axios.post('/fix/article', {
-                blog_id: this.blogInfo.blog_id,
-                title: this.articleform.title,
+                blog_id: this.blogInfo.blog_id.replace(/<[^>]+>/g,""),
+                title: this.articleform.title.replace(/<[^>]+>/g,""),
                 describe: this.articleform.describe,
                 text: this.articleform.text
             }).then(resp => {

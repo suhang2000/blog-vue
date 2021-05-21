@@ -15,6 +15,7 @@ import Fixarticle from '../components/admin/Fixarticle'
 
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
+import blogshow from '../components/user/blogshow'
 import Cart from '../components/user/common/Cart'
 
 import OrderToSend from '../components/user/common/OrderToSend'
@@ -80,6 +81,14 @@ export default new Router({
           path: '/home/fixarticle',
           name: 'fixarticle',
           component: Fixarticle,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/home/showarticle',
+          name: 'showarticle',
+          component: blogshow,
           meta: {
             requireAuth: true
           }
