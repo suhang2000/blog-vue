@@ -98,7 +98,7 @@ export default {
       this.$axios
         .get('/login/admin', {
           params: {
-            admin_id: this.loginForm.user_id,
+            admin_id: this.loginForm.username,
             admin_password: this.loginForm.user_password
           }
         })
