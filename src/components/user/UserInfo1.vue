@@ -48,7 +48,7 @@ export default {
   name: 'UserInfo1',
   data () {
     return {
-      imgSrc:require('../../assets/user/info_bg1.jpg'),
+      imgSrc:require('../../assets/avatar/info_bg1.jpg'),
        fileList: {name: '', url: ''},
       datas: {
         username: '',
@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     getImgUrl (src) {
-      return require('@/assets/user/' + src)
+      return require('@/assets/avatar/' + src)
     },
      handleChange(file, fileList) {
       const _this = this
