@@ -91,6 +91,8 @@ export default {
       }else {
         _this.$alert('select failed!', {confirmButtonText: 'OK'})
       }
+
+      
     })
     .catch(failResponse => {})
   },
