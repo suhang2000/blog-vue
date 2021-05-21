@@ -3,7 +3,7 @@
   <search-bar @onSearch="page(1)" ref="searchBar"></search-bar>
   <div style="text-align:center">
   <ul>
-  <el-button type="primary" @click="handlenewblog()">写博客</el-button>
+  <el-button type="primary" @click="handlenewblog()">添加博客</el-button>
   </ul>
   </div>
   <ul class="list">
@@ -238,4 +238,9 @@ export default {
             line-height: 1.5;
         }
     }
+  .el-button--primary {
+    float: right;
+    padding-top: 10px;
+    margin-right: 20px;
+  }
 </style>

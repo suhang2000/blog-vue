@@ -16,9 +16,7 @@ import Fixarticle from '../components/admin/Fixarticle'
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
 import blogshow from '../components/user/blogshow'
-import Cart from '../components/user/common/Cart'
 
-import OrderToSend from '../components/user/common/OrderToSend'
 import UserInfo from '../components/user/UserInfo'
 import UserInfo1 from '../components/user/UserInfo1'
 import UserInfo2 from '../components/user/UserInfo2'
@@ -89,14 +87,6 @@ export default new Router({
           path: '/home/showarticle',
           name: 'showarticle',
           component: blogshow,
-          meta: {
-            requireAuth: true
-          }
-        },
-        {
-          path: '/home/orderToSend',
-          name: 'OrderToSend',
-          component: OrderToSend,
           meta: {
             requireAuth: true
           }
