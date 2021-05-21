@@ -1,29 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Login from '../components/Login'
 import PwdReset from '../components/pwdReset'
+import UserRegister from '../components/user/UserRegister'
 
 import AdminIndex from '../components/admin/AdminIndex'
-import Selectuser from '../components/admin/Selectuser'
-import AddUser from '../components/admin/AddUser'
 import Fixuser from '../components/admin/Fixuser'
+import Selectuser from '../components/admin/Selectuser'
+
+import AddUser from '../components/admin/AddUser'
 import Selectarticle from '../components/admin/Selectarticle'
 import Fixarticle from '../components/admin/Fixarticle'
 
-import SalerIndex from '../components/saler/SalerIndex'
-import SalerDashboard from '../components/saler/function/dashboardIndex'
-import SalerInfo from '../components/saler/function/SalerInfo'
-import SalerOrder from '../components/saler/function/SalerOrder'
-import SalerProduct from '../components/saler/function/SalerProduct'
-import SalerRegister from '../components/saler/SalerRegister'
-
-import UserRegister from '../components/user/UserRegister'
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
 import Cart from '../components/user/common/Cart'
-import Order from '../components/user/common/Order'
 
-import OrderToPay from '../components/user/common/OrderToPay'
 import OrderToSend from '../components/user/common/OrderToSend'
 import UserInfo from '../components/user/UserInfo'
 import UserInfo1 from '../components/user/UserInfo1'
@@ -52,11 +45,6 @@ export default new Router({
       path: '/register/user',
       name: 'UserRegister',
       component: UserRegister
-    },
-    {
-      path: '/register/saler',
-      name: 'SalerRegister',
-      component: SalerRegister
     },
     {
       path: '/home',
@@ -133,50 +121,6 @@ export default new Router({
               }
             }
           ],
-          meta: {
-            requireAuth: true
-          }
-        }
-      ]
-    },
-
-    {
-      path: '/saler',
-      name: 'Saler',
-      component: SalerIndex,
-      redirect: '/saler/dashboard',
-      // meta: {
-      //   requireAuth: true
-      // },
-      children: [
-        {
-          path: '/saler/dashboard',
-          name: 'Dashboard',
-          component: SalerDashboard,
-          meta: {
-            requireAuth: true
-          }
-        },
-        {
-          path: '/saler/order',
-          name: 'SalerOrder',
-          component: SalerOrder,
-          meta: {
-            requireAuth: true
-          }
-        },
-        {
-          path: '/saler/product',
-          name: 'SalerProduct',
-          component: SalerProduct,
-          meta: {
-            requireAuth: true
-          }
-        },
-        {
-          path: '/saler/salerinfo',
-          name: 'SalerInfo',
-          component: SalerInfo,
           meta: {
             requireAuth: true
           }
