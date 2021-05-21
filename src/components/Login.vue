@@ -104,7 +104,7 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            _this.$store.commit('loginAdmin', _this.loginForm)
+            _this.$store.commit('loginAdmin', _this.loginForm.username)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/admin' : path})
           } else {

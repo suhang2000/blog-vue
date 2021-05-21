@@ -11,7 +11,7 @@ export default new Vuex.Store({
     //   name: window.sessionStorage.getItem('saler' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('saler' || '[]')).name
     // },
     admin: {
-      name: window.sessionStorage.getItem('admin' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('admin' || '[]')).name
+      adminid: window.sessionStorage.getItem('adminid' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('adminid' || '[]'))
     }
   },
   mutations: {
@@ -23,9 +23,9 @@ export default new Vuex.Store({
     //   state.saler = saler
     //   window.sessionStorage.setItem('saler', JSON.stringify(saler))
     // },
-    loginAdmin (state, admin) {
-      state.admin = admin
-      window.sessionStorage.setItem('admin', JSON.stringify(admin))
+    loginAdmin (state, adminid) {
+      state.adminid = adminid
+      window.sessionStorage.setItem('adminid', JSON.stringify(adminid))
     },
     logout (state) {
       if (state.user !== []) {
@@ -39,10 +39,10 @@ export default new Vuex.Store({
       //   window.sessionStorage.removeItem('saler')
       //   state.saler = []
       // }
-      if (state.admin !== []) {
-        state.admin = ''
-        window.sessionStorage.removeItem('admin')
-        state.admin = []
+      if (state.adminid !== []) {
+        state.adminid = ''
+        window.sessionStorage.removeItem('adminid')
+        state.adminid = []
       }
     }
   }
