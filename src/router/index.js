@@ -20,6 +20,7 @@ import SalerRegister from '../components/saler/SalerRegister'
 import UserRegister from '../components/user/UserRegister'
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
+import blogshow from '../components/user/blogshow'
 import Cart from '../components/user/common/Cart'
 import Order from '../components/user/common/Order'
 
@@ -92,6 +93,14 @@ export default new Router({
           path: '/home/fixarticle',
           name: 'fixarticle',
           component: Fixarticle,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/home/showarticle',
+          name: 'showarticle',
+          component: blogshow,
           meta: {
             requireAuth: true
           }

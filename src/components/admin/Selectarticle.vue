@@ -52,11 +52,13 @@
       label="操作"
       width="330">
       <template slot-scope="scope">
+        <el-button type="text" @click="handleShow(scope.$index, scope.row)" size="small">查看</el-button>
         <el-button type="text" @click="handleEdit(scope.$index, scope.row)" size="small">编辑</el-button>
         <el-button type="text" @click="handleDelete(scope.$index, scope.row)" size="small">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
+  <br>
   <el-pagination
       background
       layout="prev, pager, next"
@@ -239,6 +241,12 @@
           _this.articleform.text = '';
           _this.articleform.username = '';
         },
+        handleShow: function (index, row) {
+          let _this = this;
+          console.log(row);
+          let resol = _this.$router.resolve({path: '/home/showarticle', query: {blog_id: this.data0[index].blog_id, isadmin: !this.isuser}});
+          window.open(resol.href, '_blank');
+        },
         handleEdit: function (index, row) {
           let _this = this;
           console.log(row);
@@ -257,9 +265,9 @@
             })
             .then(resp => {
               if (resp.data.code === 200) {
-                _this.$alert('delete success!', {confirmButtonText: 'OK'})
+                _this.$alert('删除成功!', {confirmButtonText: 'OK'})
               }else {
-                _this.$alert('delete failed!', {confirmButtonText: 'OK'})
+                _this.$alert('删除失败!', {confirmButtonText: 'OK'})
               }
               _this.$axios
                   .post('/select/article/page',{

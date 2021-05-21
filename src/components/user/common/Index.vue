@@ -8,13 +8,13 @@
   </div>
   <ul class="list">
       <li v-for="item in articleList" :key="item.blog_id" class="item">
-          <el-link :underline="false" :href="'/home/Showarticle/'+item.blog_id">
+          <el-link :underline="false" :href="'#/home/showarticle/?blog_id='+item.blog_id+'&isadmin=false'" target="_blank">
               <div class="content">
                   <h4 class="title">{{item.title}}</h4>
                   <p class="description">{{item.describe}}</p>
                   <div class="meta">
                       <span>评论 {{item.commentCnt}}</span>
-                      <span v-if="item.createTime" class="time">{{item.createTime}}</span>
+                      <span v-if="item.public_time" class="time">{{item.public_time}}</span>
                   </div>
               </div>
           </el-link>
