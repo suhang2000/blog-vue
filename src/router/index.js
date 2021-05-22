@@ -51,19 +51,19 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home,
-      redirect: '/home/index',
+      redirect: '/home/myblog',
       children: [
         {
-          path: '/home/index',
-          name: 'Index',
+          path: '/home/myblog',
+          name: 'Myblog',
           component: Index,
           meta: {
             requireAuth: true
           }
         },
         {
-          path: '/home/cart',
-          name: 'Cart',
+          path: '/home/blog',
+          name: 'Blog',
           component: Index,
           meta: {
             requireAuth: true
@@ -168,6 +168,11 @@ export default new Router({
       path: '/admin/Fixarticle',
       name: 'Fixarticle',
       component: Fixarticle
+    },
+    {
+      path: '/admin/showarticle',
+      name: 'showarticleadmin',
+      component: blogshow
     },
     {
       path: '/404',
