@@ -17,6 +17,7 @@ export default {
     }
   },
    created: function () {
+    const _this = this
     this.$axios.get('/userInfo_select', {
       params: {
         username: this.$store.state.username
