@@ -27,6 +27,7 @@ import UserInfo1 from '../components/user/UserInfo1'
 import UserInfo2 from '../components/user/UserInfo2'
 import UserInfo3 from '../components/user/UserInfo3'
 
+import Page404 from '../components/404'
 Vue.use(Router)
 
 export default new Router({
@@ -55,19 +56,19 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home,
-      redirect: '/home/index',
+      redirect: '/home/myblog',
       children: [
         {
-          path: '/home/index',
-          name: 'Index',
+          path: '/home/myblog',
+          name: 'Myblog',
           component: Index,
           meta: {
             requireAuth: true
           }
         },
         {
-          path: '/home/cart',
-          name: 'Cart',
+          path: '/home/blog',
+          name: 'Blog',
           component: Index,
           meta: {
             requireAuth: true
@@ -98,46 +99,10 @@ export default new Router({
           }
         },
         {
-          path: '/home/orderToSend',
-          name: 'OrderToSend',
-          component: OrderToSend,
-          meta: {
-            requireAuth: true
-          }
+          path: '/home/UserInfo1',
+          name: 'UserInfo1',
+          component: UserInfo1,
         },
-        {
-          path: '/home/userInfo',
-          name: 'UserInfo',
-          component: UserInfo,
-          redirect: '/home/userInfo/userInfo1',
-          children: [
-
-            {
-              path: '/home/userInfo/UserInfo1',
-              name: 'UserInfo1',
-              component: UserInfo1
-            },
-            {
-              path: '/home/userInfo/UserInfo2',
-              name: 'UserInfo2',
-              component: UserInfo2,
-              meta: {
-                requireAuth: true
-              }
-            },
-            {
-              path: '/home/userInfo/UserInfo3',
-              name: 'UserInfo3',
-              component: UserInfo3,
-              meta: {
-                requireAuth: true
-              }
-            }
-          ],
-          meta: {
-            requireAuth: true
-          }
-        }
       ]
     },
     {
@@ -192,6 +157,21 @@ export default new Router({
       path: '/admin/Fixarticle',
       name: 'Fixarticle',
       component: Fixarticle
+    },
+    {
+      path: '/admin/showarticle',
+      name: 'showarticleadmin',
+      component: blogshow
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: Page404
+    },
+    {
+      path: '*',
+      name: '404',
+      redirect: '/404'
     }
   ]
 })

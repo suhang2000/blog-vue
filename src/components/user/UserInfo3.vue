@@ -8,6 +8,10 @@
      <span></span>
      <el-divider></el-divider>
     <el-form :model="ruleForm"  status-icon :rules="rules" ref="ruleForm" label-width="500px" class="demo-ruleForm">
+      <el-form-item  label="旧密码" prop="oldpass">
+    <el-input style="background-color: transparent"  type="password" v-model="ruleForm.oldpass" autocomplete="off"></el-input><i class="el-icon-lock"></i>
+  </el-form-item>
+      <el-divider></el-divider>
   <el-form-item  label="密码" prop="pass">
     <el-input style="background-color: transparent"  type="password" v-model="ruleForm.pass" autocomplete="off"></el-input><i class="el-icon-lock"></i>
   </el-form-item>
@@ -29,21 +33,13 @@
 export default {
   name: 'UserInfo3.vue',
   data () {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('年龄不能为空'))
+
+    var validatePass0 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入旧密码'))
       }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'))
-        } else {
-          if (value < 18) {
-            callback(new Error('必须年满18岁'))
-          } else {
-            callback()
-          }
-        }
-      }, 1000)
+        callback()
+
     }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -65,29 +61,31 @@ export default {
       }
     }
     return {
-       imgSrc:require('../../assets/user/info_bg1.jpg'),
+       imgSrc:require('../../assets/avatar/info_bg1.jpg'),
       activeNames: ['1'],
       datas: {
-        username: ''
+        username: '',
+        user_password:''
       },
       ruleForm: {
+        oldpass:'',
         pass: '',
         checkPass: '',
-        age: ''
       },
       rules: {
+         oldpass: [
+          { validator: validatePass0, trigger: 'blur' }
+        ],
         pass: [
           { validator: validatePass, trigger: 'blur' }
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
-        ],
-        age: [
-          { validator: checkAge, trigger: 'blur' }
         ]
       }
     }
   },
+
   methods: {
     handleChange (val) {
       console.log(val)
@@ -95,7 +93,15 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$axios.get('/changepsd', {
+          if(this.ruleForm.oldpass!=this.datas.user_password){
+            this.$message({
+                  type: 'warning',
+                  message: '验证旧密码失败'
+                })
+
+          }
+          else if(this.ruleForm.oldpass==this.datas.user_password){
+            this.$axios.get('/changepsd', {
             params: {
               value: this.ruleForm.pass,
               username: this.$store.state.username
@@ -120,6 +126,8 @@ export default {
             .catch(failResponse => {
               this.$message('服务器异常')
             })
+          }
+
         } else {
           console.log('error submit!!')
           return false
@@ -140,6 +148,7 @@ export default {
       .then(resp => {
         if (resp.data.code === 200) {
           _this.datas.username = resp.data.data[0].username
+          _this.datas.user_password = resp.data.data[0].user_password
           console.log(_this.datas.username)
         } else {
         }
