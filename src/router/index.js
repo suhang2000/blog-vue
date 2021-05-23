@@ -92,38 +92,10 @@ export default new Router({
           }
         },
         {
-          path: '/home/userInfo',
-          name: 'UserInfo',
-          component: UserInfo,
-          redirect: '/home/userInfo/userInfo1',
-          children: [
-
-            {
-              path: '/home/userInfo/UserInfo1',
-              name: 'UserInfo1',
-              component: UserInfo1
-            },
-            {
-              path: '/home/userInfo/UserInfo2',
-              name: 'UserInfo2',
-              component: UserInfo2,
-              meta: {
-                requireAuth: true
-              }
-            },
-            {
-              path: '/home/userInfo/UserInfo3',
-              name: 'UserInfo3',
-              component: UserInfo3,
-              meta: {
-                requireAuth: true
-              }
-            }
-          ],
-          meta: {
-            requireAuth: true
-          }
-        }
+          path: '/home/UserInfo1',
+          name: 'UserInfo1',
+          component: UserInfo1,
+        },
       ]
     },
     {

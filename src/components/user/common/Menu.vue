@@ -27,7 +27,7 @@ export default {
         {name: 'index', navItem: '主页'},
         {name: 'cart', navItem: '博客'},
         {name: 'selectarticle', navItem: '博客管理'},
-        {name: 'userInfo', navItem: '我的信息'}
+        {name: 'userInfo1', navItem: '我的信息'}
       ],
       isLogin: false,
       uname: ''
