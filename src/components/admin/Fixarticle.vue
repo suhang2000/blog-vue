@@ -65,7 +65,7 @@ export default {
         text: ''
       },
       editorOption: {
-        placeholder: '请输入文章内容',
+        placeholder: '请输入文章内容，包括图片需少于128MB',
         modules: {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
@@ -86,13 +86,13 @@ export default {
         }
       },
       titleeditorOption: {
-        placeholder: '请输入文章标题',
+        placeholder: '请输入文章标题，不能超过40字符',
         modules: {
           toolbar: []
         }
       },
       describeeditorOption: {
-        placeholder: '请输入文章描述',
+        placeholder: '请输入文章描述，不能超过250字符',
         modules: {
           toolbar: []
         }
@@ -120,25 +120,34 @@ export default {
     },
     getCurrentTime() {
       var _this = this;
-  　　let yy = new Date().getFullYear();
-  　　let mm = new Date().getMonth()+1;
-  　　let dd = new Date().getDate();
-  　　let hh = new Date().getHours();
-  　　let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
-  　　let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
-  　　_this.gettime = yy+'/'+mm+'/'+dd+' '+hh+':'+mf+':'+ss;
+      let yy = new Date().getFullYear();
+      let mm = new Date().getMonth()+1;
+      let dd = new Date().getDate();
+      let hh = new Date().getHours();
+      let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+      let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+      _this.gettime = yy+'/'+mm+'/'+dd+' '+hh+':'+mf+':'+ss;
     },
     submit () {
       if(this.articleform.title.length == 0){
         this.$alert("标题不能为空", {confirmButtonText: 'OK'});
         return;
+      }else if(this.articleform.title.length > 40){
+        this.$alert("标题不能超过40字符", {confirmButtonText: 'OK'});
+        return;
       }
       if(this.articleform.describe.length == 0){
         this.$alert("描述不能为空", {confirmButtonText: 'OK'});
         return;
+      }else if (this.articleform.describe.length > 250){
+        this.$alert("描述不能超过250字符", {confirmButtonText: 'OK'});
+        return;
       }
       if(this.articleform.text.length == 0){
         this.$alert("内容不能为空", {confirmButtonText: 'OK'});
+        return;
+      }else if(this.articleform.text.length > 128*1024*1024){
+        this.$alert("内容不能超过128MB", {confirmButtonText: 'OK'});
         return;
       }
 
@@ -150,27 +159,26 @@ export default {
       if(this.isnew){
         this.getCurrentTime();
         this.$axios.post('/add/article', {
-                title: this.articleform.title.replace(/<[^>]+>/g,""),
-                describe: this.articleform.describe.replace(/<[^>]+>/g,""),
-                text: this.articleform.text,
-                user_id: this.user_id,
-                public_time: this.gettime
-            }).then(resp => {
+          title: this.articleform.title.replace(/<[^>]+>/g,""),
+          describe: this.articleform.describe.replace(/<[^>]+>/g,""),
+          text: this.articleform.text,
+          user_id: this.user_id,
+          public_time: this.gettime
+        }).then(resp => {
           if (resp.data.code === 200) {
             this.$alert(resp.data.message, {confirmButtonText: 'OK'});
-            this.$router.push({path: "/home/cart"});
+            this.$router.push({path: "/home/myblog"});
           }else {
             this.$alert('发布失败! 原因: '+resp.data.message, {confirmButtonText: 'OK'})
           }
-        })
-        .catch(failResponse => {})
+        }).catch(failResponse => {})
       }else{
         this.$axios.post('/fix/article', {
-                blog_id: this.blogInfo.blog_id.replace(/<[^>]+>/g,""),
-                title: this.articleform.title.replace(/<[^>]+>/g,""),
-                describe: this.articleform.describe,
-                text: this.articleform.text
-            }).then(resp => {
+          blog_id: this.blogInfo.blog_id,
+          title: this.articleform.title.replace(/<[^>]+>/g,""),
+          describe: this.articleform.describe.replace(/<[^>]+>/g,""),
+          text: this.articleform.text
+        }).then(resp => {
           if (resp.data.code === 200) {
             this.$alert(resp.data.message, {confirmButtonText: 'OK'});
             if(this.isadmin){
@@ -181,8 +189,7 @@ export default {
           }else {
             this.$alert('修改失败! 原因: '+resp.data.message, {confirmButtonText: 'OK'})
           }
-        })
-        .catch(failResponse => {})
+        }).catch(failResponse => {})
       }
     }
   }

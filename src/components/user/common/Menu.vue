@@ -24,8 +24,8 @@ export default {
   data () {
     return {
       navList: [
-        {name: 'index', navItem: '主页'},
-        {name: 'cart', navItem: '博客'},
+        {name: 'myblog', navItem: '主页'},
+        {name: 'blog', navItem: '博客'},
         {name: 'selectarticle', navItem: '博客管理'},
         {name: 'userInfo1', navItem: '我的信息'}
       ],
