@@ -1,4 +1,4 @@
-<template>
+<!--<template>
 <div class="blogs">
   <search-bar @onSearch="page(1)" ref="searchBar"></search-bar>
   <div style="text-align:center">

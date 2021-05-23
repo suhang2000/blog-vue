@@ -6,13 +6,13 @@
       <el-input v-model="articleform.blog_id" maxlength="10" show-word-limit placeholder="请输入ID"></el-input>
      </el-col>
       <el-col :span="5">
-      <el-input v-model="articleform.title" maxlength="30" show-word-limit placeholder="请输入标题"></el-input>
+      <el-input v-model="articleform.title" maxlength="20" show-word-limit placeholder="请输入标题"></el-input>
       </el-col>
       <el-col :span="5">
-      <el-input v-model="articleform.text" maxlength="30" show-word-limit placeholder="请输入内容"></el-input>
+      <el-input v-model="articleform.text" maxlength="20" show-word-limit placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="6">
-      <el-input v-model="articleform.username" maxlength="11" show-word-limit placeholder="请输入发布用户" v-if="!isuser"></el-input>
+      <el-input v-model="articleform.username" maxlength="16" show-word-limit placeholder="请输入发布用户" v-if="!isuser"></el-input>
       </el-col>
       <el-button type="primary" icon="el-icon-search" @click="page(1)">搜索</el-button>
       <el-button type="primary" icon="el-icon-delete" @click="cleandata"></el-button>
@@ -181,11 +181,9 @@ export default {
         }else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
-      })
-      .catch(failResponse => {})
+      }).catch(failResponse => {})
     },
-    methods: {
-      select_by_condition() {
+    oncreate(){
       let _this = this;
       try{
         if(_this.$route.path == '/admin/Selectarticle'){
@@ -196,6 +194,9 @@ export default {
         }
       }catch(exception){
         console.log("no username")
+      }
+      if (_this.$route.query.id !== undefined) {
+          _this.articleform.blog_id = _this.$route.query.id.toString();
       }
       _this.$axios.post('/select/article/page',{
         blog_id: _this.articleform.blog_id,

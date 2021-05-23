@@ -1,4 +1,4 @@
-<template>
+<!--<template>
    <div class="editor_wrap" style="align:center">
     <br>
     <h1 class="title">{{content.title}}</h1>
