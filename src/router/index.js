@@ -12,6 +12,9 @@ import Selectuser from '../components/admin/Selectuser'
 import AddUser from '../components/admin/AddUser'
 import Selectarticle from '../components/admin/Selectarticle'
 import Fixarticle from '../components/admin/Fixarticle'
+import Fixadmin from '../components/admin/Fixadmin'
+import Selectreport from '../components/admin/Selectreport'
+import Detail from '../components/admin/Detail'
 
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
@@ -23,6 +26,7 @@ import UserInfo from '../components/user/UserInfo'
 import UserInfo1 from '../components/user/UserInfo1'
 import UserInfo2 from '../components/user/UserInfo2'
 import UserInfo3 from '../components/user/UserInfo3'
+
 Vue.use(Router)
 
 export default new Router({
@@ -158,12 +162,24 @@ export default new Router({
           component: AddUser
         },
         {
+          path: '/admin/Fixadmin',
+          name: 'Fixadmin',
+          component: Fixadmin
+        },
+        {
+          path: '/admin/Selectreport',
+          name: 'Selectreport',
+          component: Selectreport,
+        },
+        {
           path: '/admin/Selectarticle',
           name: 'Selectarticle',
-          component: Selectarticle,
-          meta: {
-            requireAuth: true
-          }
+          component: Selectarticle
+        },
+        {
+          path: '/admin/Selectreport/detail',
+          name: 'Detail',
+          component: Detail
         }
       ]
     },

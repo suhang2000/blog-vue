@@ -3,7 +3,7 @@
   <el-aside width="200px" style="background-color: rgb(238, 241, 246)" >
     <el-menu  router>
       <el-submenu  index="7">
-         <template slot="title">Admin</template>
+         <template slot="title">信息管理</template>
             <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
               {{ item.navItem }}
             </el-menu-item>
@@ -39,7 +39,9 @@ export default {
       navList: [
         {name: 'Selectuser', navItem: '用户信息'},
         {name: 'AddUser', navItem: '添加用户'},
-        {name: 'Selectarticle', navItem: '文章信息'}
+        {name: 'Selectarticle', navItem: '文章信息'},
+        {name: 'Fixadmin', navItem: '个人信息修改'},
+        {name: 'Selectreport', navItem: '用户举报信息'}
       ],
       regisForm: {
         user_id: '',

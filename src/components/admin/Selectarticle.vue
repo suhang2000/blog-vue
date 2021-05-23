@@ -112,13 +112,17 @@
     created(){
           let _this = this;
           try{
-            if (JSON.stringify(_this.$store.state.username)!='{}') {
-              _this.isuser=true;
+            if (JSON.stringify(_this.$store.state.username) !== undefined) {
+              _this.isuser = true;
               _this.articleform.username=_this.$store.state.username;
             }
           }catch(exception){
             alert("no username")
             console.log("no username")
+          }
+          console.log(_this.$route.query.id)
+          if (_this.$route.query.id !== undefined) {
+              _this.articleform.blog_id = _this.$route.query.id.toString()
           }
           _this.$axios
               .post('/select/article/page',{
@@ -311,7 +315,7 @@
               })
               .catch(failResponse => {})
             })
-            .catch(failResponse => {})    
+            .catch(failResponse => {})
         }
     }
   }

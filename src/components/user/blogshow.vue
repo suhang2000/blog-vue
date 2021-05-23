@@ -24,7 +24,7 @@
       @change="onEditorChange($event)"
     >
     </quillEditor>
-    </div> 
+    </div>
     <div style="margin-top:40px;">
       <el-button type="primary" :disabled="btnChangeEnable" @click="submit">提交评论</el-button>
     </div>
@@ -92,7 +92,7 @@ export default {
         _this.$alert('select failed!', {confirmButtonText: 'OK'})
       }
 
-      
+
     })
     .catch(failResponse => {})
   },
@@ -129,7 +129,7 @@ export default {
     }
   }
 };
-</script> 
+</script>
 
 <style scoped>
 .editor_wrap /deep/ .editor img {

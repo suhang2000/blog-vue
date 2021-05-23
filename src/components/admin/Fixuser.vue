@@ -2,7 +2,7 @@
     <body id="paper">
   <el-form ref="fixInfo" :model="fixInfo" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
-    <h3 class="regis_title">用户Id{{ userInfo.user_id }}</h3>
+    <h3 class="regis_title">正在修改用户的Id为：{{ userInfo.user_id }}</h3>
     <div class="block">
       <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
     </div>
@@ -14,8 +14,8 @@
       <el-input type="text" v-model="fixInfo.phone"
                 auto-complete="off" :placeholder="userInfo.phone"></el-input>
     </el-form-item>
-    <el-radio v-model="fixInfo.gender" label="F">男</el-radio>
-    <el-radio v-model="fixInfo.gender" label="M">女</el-radio>
+    <el-radio v-model="fixInfo.gender" label="M">男</el-radio>
+    <el-radio v-model="fixInfo.gender" label="F">女</el-radio>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="user_fix('fixInfo')">修改</el-button>
     </el-form-item>

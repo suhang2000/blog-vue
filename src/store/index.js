@@ -5,13 +5,13 @@ export default new Vuex.Store({
   state: {
     // 仿照user添加admin和saler的session存储信息，然后在main.js里改认证判断
     user: {
-      user_name: window.sessionStorage.getItem('username' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('username' || '[]'))
+      user_name: window.sessionStorage.getItem('username' || '[]') === null ? '' : JSON.parse(window.sessionStorage.getItem('username' || '[]'))
     },
     // saler: {
     //   name: window.sessionStorage.getItem('saler' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('saler' || '[]')).name
     // },
     admin: {
-      adminid: window.sessionStorage.getItem('adminid' || '[]') == null ? '' : JSON.parse(window.sessionStorage.getItem('adminid' || '[]'))
+      adminid: window.sessionStorage.getItem('adminid' || '[]') === null ? '' : JSON.parse(window.sessionStorage.getItem('adminid' || '[]'))
     }
   },
   mutations: {
