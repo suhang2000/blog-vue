@@ -1,4 +1,4 @@
-<!--<template>
+<template>
    <div class="editor_wrap" style="align:center">
     <br>
     <h1 class="title">{{content.title}}</h1>
@@ -28,6 +28,7 @@
       <div style="text-align:center; margin-top:40px;">
         <ul>
         <el-button type="primary" :disabled="btnChangeEnable" @click="submit()">提交评论</el-button>
+        <el-button type="primary" :disabled="btnChangeEnable" @click="reportblog()">举报</el-button>
         </ul>
       </div>
       <br>
@@ -254,6 +255,11 @@ export default {
           this.oncreate();
         }).catch(failResponse => {})
       }).catch(() => {});
+    },
+    reportblog () {
+        console.log(this.blog_id)
+        console.log(this.blog_user_name)
+        this.$router.push({path: '/home/showarticle/Report', query: {username: this.blog_user_name, blog_id: this.blog_id, content: this.content}})
     }
   }
 }

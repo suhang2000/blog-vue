@@ -19,6 +19,7 @@ import Detail from '../components/admin/Detail'
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
 import blogshow from '../components/user/blogshow'
+import Report from '../components/user/common/Report'
 
 import UserInfo from '../components/user/UserInfo'
 import UserInfo1 from '../components/user/UserInfo1'
@@ -170,6 +171,11 @@ export default new Router({
       path: '*',
       name: '404',
       redirect: '/404'
+    },
+    {
+      path: '/home/showarticle/Report',
+      name: 'Report',
+      component: Report
     }
   ]
 })
