@@ -24,63 +24,64 @@
 </template>
 
 <script>
-  import {validatePhone, validateEmail} from '../../utils/validate'
-    export default {
-        name: "Fixuser",
-        data() {
-            return {
-                rules: {
-                    username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-                    phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
-                },
-                userInfo: {
-                    user_id: '',
-                    username: '',
-                    phone: '',
-                    gender: ''
-                },
-                fixInfo: {
-                    user_id: '',
-                    username: '',
-                    phone: '',
-                    gender: ''
-                }
-            }
-        },
-        created() {
-            var temp = this.$route.query.data;
-            this.userInfo.user_id = temp.user_id;
-            this.userInfo.username = temp.username;
-            this.userInfo.phone = temp.phone_number;
-            this.userInfo.gender = temp.gender;
-            this.fixInfo.user_id = temp.user_id;
-        },
-        methods: {
-            user_fix(formName){this.$refs[formName].validate((valid) => {
+import {validatePhone, validateEmail} from '../../utils/validate'
+export default {
+  name: 'Fixuser',
+  data () {
+    return {
+      rules: {
+        username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
+      },
+      userInfo: {
+        user_id: '',
+        username: '',
+        phone: '',
+        gender: ''
+      },
+      fixInfo: {
+        user_id: '',
+        username: '',
+        phone: '',
+        gender: ''
+      }
+    }
+  },
+  created () {
+    var temp = this.$route.query.data
+    this.userInfo.user_id = temp.user_id
+    this.userInfo.username = temp.username
+    this.userInfo.phone = temp.phone_number
+    this.userInfo.gender = temp.gender
+    this.fixInfo.user_id = temp.user_id
+  },
+  methods: {
+    user_fix (formName) {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('success')
-            this.$axios.post('/fix/user', {
-                user_id: this.userInfo.user_id,
-                username: this.fixInfo.username,
-                phone_number: this.fixInfo.phone,
-                gender: this.fixInfo.gender
-            }).then(resp => {
-          if (resp.data.code === 200) {
-            this.$alert(resp.data.message, {confirmButtonText: 'OK'});
-            this.$router.push({path: "/admin/Selectuser"});
-          }else {
-            this.$alert('fix failed!', {confirmButtonText: 'OK'})
-          }
-        })
-        .catch(failResponse => {})
+          this.$axios.post('/fix/user', {
+            user_id: this.userInfo.user_id,
+            username: this.fixInfo.username,
+            phone_number: this.fixInfo.phone,
+            gender: this.fixInfo.gender
+          }).then(resp => {
+            if (resp.data.code === 200) {
+              this.$alert(resp.data.message, {confirmButtonText: 'OK'})
+              this.$router.push({path: '/admin/Selectuser'})
+            } else {
+              this.$alert('fix failed!', {confirmButtonText: 'OK'})
+            }
+          })
+            .catch(failResponse => {})
         } else {
           console.log('error submit!!')
           return false
         }
       })
-            }
-        }
     }
+  }
+}
 </script>
 
 <style scoped>

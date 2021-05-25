@@ -22,10 +22,8 @@ import Index from '../components/user/common/Index'
 import blogshow from '../components/user/blogshow'
 import Report from '../components/user/common/Report'
 
-import UserInfo from '../components/user/UserInfo'
+import UserInfo from "../components/user/common/UserInfo"
 import UserInfo1 from '../components/user/UserInfo1'
-import UserInfo2 from '../components/user/UserInfo2'
-import UserInfo3 from '../components/user/UserInfo3'
 
 import Page404 from '../components/404'
 Vue.use(Router)
@@ -74,10 +72,7 @@ export default new Router({
         {
           path: '/home/blog',
           name: 'Blog',
-          component: Index,
-          meta: {
-            requireAuth: true
-          }
+          component: Index
         },
         {
           path: '/home/selectarticle',
@@ -104,10 +99,18 @@ export default new Router({
           }
         },
         {
+          path: '/home/userinfo',
+          name: 'UserInfo',
+          component: UserInfo,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
           path: '/home/UserInfo1',
           name: 'UserInfo1',
-          component: UserInfo1,
-        },
+          component: UserInfo1
+        }
       ]
     },
     {
@@ -139,7 +142,7 @@ export default new Router({
         {
           path: '/admin/Selectreport',
           name: 'Selectreport',
-          component: Selectreport,
+          component: Selectreport
         },
         {
           path: '/admin/Selectarticle',

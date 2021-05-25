@@ -47,7 +47,6 @@ export default {
   methods: {
     user_login () {
       const _this = this
-      console.log(_this.loginForm.username)
       this.$axios
         .post('/login/user', {
           username: this.loginForm.name,
@@ -56,7 +55,7 @@ export default {
         .then(resp => {
           console.log(resp)
           if (resp.data.code === 200) {
-            _this.$store.commit('loginUser', _this.loginForm.username)
+            _this.$store.commit('loginUser', _this.loginForm.name)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/home/myblog' : path})
           } else {

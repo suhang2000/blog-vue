@@ -1,6 +1,5 @@
 <template>
   <div>
-<!--    <i class="el-icon-circle-plus-outline"  @click="dialogFormVisible = true"></i>-->
     <el-dialog
       title="修改用户信息"
       :visible.sync="dialogFormVisible"
@@ -10,36 +9,20 @@
 <!--          <el-input v-model="form.uname" autocomplete="off"></el-input>-->
 <!--        </el-form-item>-->
         <el-form-item label="电话" :label-width="formLabelWidth" prop="phone">
-          <el-input v-model="form.phone" autocomplete="off"></el-input>
+          <el-input v-model="form.phone_number" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" :label-width="formLabelWidth" prop="email">
           <el-input v-model="form.email" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="地址" :label-width="formLabelWidth" prop="address">
-          <el-input v-model="form.address" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="头像" :label-width="formLabelWidth" prop="icon">
-          <el-input v-model="form.icon" autocomplete="off" placeholder="图片 URL"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="头像" :label-width="formLabelWidth" prop="icon">-->
+<!--          <el-input v-model="form.profile_photo" autocomplete="off" placeholder="图片 URL"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="性别" :label-width="formLabelWidth" prop="gender">
           <el-select v-model="form.gender" placeholder="请选择性别">
             <el-option label="男" value="男"></el-option>
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="生日" :label-width="formLabelWidth" prop="birthday">
-          <div class="block">
-            <el-date-picker
-              v-model="form.birthday"
-              type="date"
-              placeholder="选择日期"
-              value-format="yyyy-MM-dd">
-            </el-date-picker>
-          </div>
-        </el-form-item>
-<!--        <el-form-item prop="bookid" style="height: 0">-->
-<!--          <el-input type="hidden" v-model="form.bookid" autocomplete="off"></el-input>-->
-<!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -64,12 +47,10 @@ export default {
       dialogFormVisible: false,
       form: {
         // uname: '',
-        phone: '',
+        phone_number: '',
         email: '',
-        address: '',
         gender: '',
-        birthday: '',
-        icon: ''
+        profile_photo: ''
       },
       formLabelWidth: '120px'
     }
@@ -77,13 +58,10 @@ export default {
   methods: {
     clear () {
       this.form = {
-        // uname: '',
-        phone: '',
+        phone_number: '',
         email: '',
-        address: '',
         gender: '',
-        birthday: '',
-        icon: ''
+        profile_photo: ''
       }
     },
     onSubmit () {
@@ -91,14 +69,12 @@ export default {
       const _this = this
       this.$axios
         .post('/home/user/info', {
-          uname: _this.$store.state.user.name,
+          username: _this.$store.state.username,
           password: 'password',
-          phone: this.form.phone,
+          phone_number: this.form.phone_number,
           email: this.form.email,
-          address: this.form.address,
           gender: this.form.gender,
-          birthday: this.form.birthday,
-          icon: this.form.icon
+          profile_photo: this.form.profile_photo
         }).then(resp => {
           if (resp && resp.status === 200) {
             this.dialogFormVisible = false

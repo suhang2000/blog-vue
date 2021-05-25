@@ -24,10 +24,10 @@ export default {
   data () {
     return {
       navList: [
-        {name: 'myblog', navItem: '主页'},
-        {name: 'blog', navItem: '博客'},
+        {name: 'myblog', navItem: '我的博客'},
+        {name: 'blog', navItem: '所有博客'},
         {name: 'selectarticle', navItem: '博客管理'},
-        {name: 'userInfo1', navItem: '我的信息'}
+        {name: 'userinfo', navItem: '我的信息'}
       ],
       isLogin: false,
       uname: ''
