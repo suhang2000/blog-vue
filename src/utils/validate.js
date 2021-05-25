@@ -1,7 +1,7 @@
 export function validatePhone (rule, value, callback) {
   const reg = /^[1][3-9][0-9]{9}$/
   if (value === '' || value === undefined || value === null) {
-    callback(new Error('电话号码不得为空'))
+    callback()
   } else if ((!reg.test(value)) && value !== '') {
     callback(new Error('电话号码不符规范'))
   } else {
@@ -12,7 +12,7 @@ export function validatePhone (rule, value, callback) {
 export function validateEmail (rule, value, callback) {
   const reg = /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/
   if (value === '' || value === undefined || value === null) {
-    callback()
+    callback(new Error('邮箱不得为空'))
   } else if (!reg.test(value)) {
     callback(new Error('请输入正确的邮箱'))
   } else {

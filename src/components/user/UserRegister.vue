@@ -20,16 +20,13 @@
     </el-form-item>
     <el-form-item prop="phone_number">
       <el-input type="text" v-model="regisForm.phone_number"
-                auto-complete="off" placeholder="电话号码"></el-input>
+                auto-complete="off" placeholder="电话号码（选填）"></el-input>
     </el-form-item>
-<!--      <el-form-item prop="email">-->
-<!--      <el-input type="text" v-model="regisForm.email"-->
-<!--                auto-complete="off" placeholder="邮箱（选填）"></el-input>-->
-<!--    </el-form-item>-->
-<!--    <el-form-item prop="address">-->
-<!--      <el-input type="text" v-model="regisForm.address"-->
-<!--                auto-complete="off" placeholder="地址（选填）"></el-input>-->
-<!--    </el-form-item>-->
+      <el-form-item prop="email">
+      <el-input type="text" v-model="regisForm.email"
+                auto-complete="off" placeholder="邮箱"></el-input>
+    </el-form-item>
+
     <el-radio v-model="regisForm.gender" label="F">男</el-radio>
     <el-radio v-model="regisForm.gender" label="M">女</el-radio>
 <!--    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" value-format="yyyy-MM-dd"></el-date-picker>-->
@@ -40,8 +37,7 @@
   </body>
 </template>
 <script>
-import {validatePhone} from '../../utils/validate'
-// , validateEmail
+import {validatePhone, validateEmail} from '../../utils/validate'
 
 export default{
   data () {
@@ -59,15 +55,15 @@ export default{
         username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         user_password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}],
-        phone_number: [{required: true, validator: validatePhone, trigger: 'blur'}]
-        // email: [{required: true, validator: validateEmail, trigger: 'blur'}]
+        phone_number: [{required: false, validator: validatePhone, trigger: 'blur'}],
+        email: [{required: true, validator: validateEmail, trigger: 'blur'}]
       },
       regisForm: {
         username: '',
         user_password: '',
         verifypwd: '',
         phone_number: '',
-        // email: '',
+        email: '',
         // address: '',
         profile_photo: '',
         gender: ''
@@ -83,7 +79,7 @@ export default{
           username: this.regisForm.username,
           user_password: this.regisForm.user_password,
           phone_number: this.regisForm.phone,
-          // email: this.regisForm.email,
+          email: this.regisForm.email,
           // address: this.regisForm.address,
           profile_photo: this.regisForm.profile_photo,
           gender: this.regisForm.gender

@@ -3,8 +3,8 @@
   <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-container" label-position="left"
            label-width="0px">
     <h3 class="login_title">登录</h3>
-    <el-form-item prop="username">
-      <el-input type="text" v-model="loginForm.username"
+    <el-form-item prop="name">
+      <el-input type="text" v-model="loginForm.name"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="user_password">
@@ -20,7 +20,7 @@
       <el-link :underline="false" href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
       <!-- <el-link :underline="false" href="http://localhost:8080/#/register/saler" icon="el-icon-s-shop" type="primary">注册成为商家</el-link> -->
     </el-form-item>
-    <el-link :underline="false" href="http://localhost:8080/#/pwdreset" icon="el-icon-s-help" type="warning">找回密码</el-link>
+    <el-link :underline="false" href="http://localhost:8080/#/emailVerify" icon="el-icon-s-help" type="warning">忘记密码或用户名？</el-link>
   </el-form>
   </body>
 </template>
@@ -35,25 +35,23 @@ export default {
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
       },
       loginForm: {
-        username: '',
+        name: '',
         user_password: ''
       },
       loading: false
     }
   },
-  activated: function() {
- this.getCase()
- },
+  activated: function () {
+    this.getCase()
+  },
   methods: {
     user_login () {
       const _this = this
       console.log(_this.loginForm.username)
       this.$axios
-        .get('/login/user', {
-          params: {
-            username: _this.loginForm.username,
-            user_password: _this.loginForm.user_password
-          }
+        .post('/login/user', {
+          username: this.loginForm.name,
+          user_password: this.loginForm.user_password
         })
         .then(resp => {
           console.log(resp)
@@ -96,11 +94,9 @@ export default {
     admin_login () {
       const _this = this
       this.$axios
-        .get('/login/admin', {
-          params: {
-            admin_id: this.loginForm.username,
-            admin_password: this.loginForm.user_password
-          }
+        .post('/login/admin', {
+          admin_id: this.loginForm.name,
+          admin_password: this.loginForm.user_password
         })
         .then(resp => {
           if (resp.data.code === 200) {

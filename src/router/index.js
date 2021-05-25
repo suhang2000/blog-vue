@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Login from '../components/Login'
 import PwdReset from '../components/pwdReset'
+import EmailVerify from '../components/user/emailVerify'
 import UserRegister from '../components/user/UserRegister'
 
 import AdminIndex from '../components/admin/AdminIndex'
@@ -45,6 +46,11 @@ export default new Router({
       path: '/pwdReset',
       name: 'PwdReset',
       component: PwdReset
+    },
+    {
+      path: '/emailVerify',
+      name: 'EmailVerify',
+      component: EmailVerify
     },
     {
       path: '/register/user',
