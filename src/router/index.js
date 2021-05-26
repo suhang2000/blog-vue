@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '../components/Login'
-import PwdReset from '../components/pwdReset'
+import ResetPassword from '../components/user/resetPassword'
 import EmailVerify from '../components/user/emailVerify'
 import UserRegister from '../components/user/UserRegister'
 
@@ -22,7 +22,7 @@ import Index from '../components/user/common/Index'
 import blogshow from '../components/user/blogshow'
 import Report from '../components/user/common/Report'
 
-import UserInfo from "../components/user/common/UserInfo"
+import UserInfo from '../components/user/common/UserInfo'
 import UserInfo1 from '../components/user/UserInfo1'
 
 import Page404 from '../components/404'
@@ -41,12 +41,12 @@ export default new Router({
       component: Login
     },
     {
-      path: '/pwdReset',
-      name: 'PwdReset',
-      component: PwdReset
+      path: '/resetPassword',
+      name: 'ResetPassword',
+      component: ResetPassword
     },
     {
-      path: '/emailVerify',
+      path: '/emailVerify/',
       name: 'EmailVerify',
       component: EmailVerify
     },
