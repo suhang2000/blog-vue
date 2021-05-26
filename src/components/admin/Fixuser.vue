@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {validatePhone, validateEmail} from '../../utils/validate'
+import {validatePhone} from '../../utils/validate'
 export default {
   name: 'Fixuser',
   data () {
@@ -101,7 +101,7 @@ export default {
     color: #505458;
   }
   #paper {
-    background: url("../../assets/regisBG.jpg") no-repeat center;
+    /*background: url("../../assets/regisBG.jpg") no-repeat center;*/
     height: 100%;
     width: 100%;
     background-size: cover;

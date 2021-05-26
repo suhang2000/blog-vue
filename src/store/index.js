@@ -25,7 +25,7 @@ export default new Vuex.Store({
       window.sessionStorage.setItem('adminid', JSON.stringify(adminid))
     },
     logout (state) {
-      if (state.user !== []) {
+      if (state.username !== []) {
         state.username = ''
         window.sessionStorage.removeItem('username')
         state.username = []

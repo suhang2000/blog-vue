@@ -1,6 +1,5 @@
 <template>
   <el-menu
-    :default-active="'/index'"
     router
     mode="horizontal"
     background-color="white"

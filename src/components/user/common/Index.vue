@@ -53,134 +53,134 @@ export default {
       ]
     }
   },
-  created(){
-    this.oncreate();
+  created () {
+    this.oncreate()
   },
   watch: {
     '$route' (to, from) {
-      this.oncreate();
+      this.oncreate()
     }
   },
   methods: {
-    handlenewblog(){
-      let _this = this;
-      var datas;
+    handlenewblog () {
+      let _this = this
+      var datas
       this.$axios.post('/select/user', {
         username: JSON.parse(window.sessionStorage.getItem('username' || '[]'))
       }).then(resp => {
         if (resp.data.code === 200) {
-          datas = resp.data.data;
-          _this.$router.push({path: '/home/Fixarticle', query: {data: datas[0], admin: false}});
+          datas = resp.data.data
+          _this.$router.push({path: '/home/Fixarticle', query: {data: datas[0], admin: false}})
         } else {
           this.$alert('获取当前用户ID异常！', {confirmButtonText: 'OK'})
         }
       }).catch(failResponse => {})
     },
-    handleShow(blog_id){
-      let _this = this;
-      _this.$router.push({path: '/home/showarticle', query: {blog_id: blog_id, isadmin: false}});
+    handleShow (blog_id) {
+      let _this = this
+      _this.$router.push({path: '/home/showarticle', query: {blog_id: blog_id, isadmin: false}})
     },
-    oncreate(){
-      var unm='';
-      var hcd='';
-      let _this = this;
-      if(_this.$route.path == '/home/blog'){
-        _this.isall = true;
-      }else{
-        _this.isall = false;
+    oncreate () {
+      var unm = ''
+      var hcd = ''
+      let _this = this
+      if (_this.$route.path == '/home/blog') {
+        _this.isall = true
+      } else {
+        _this.isall = false
       }
-      if(_this.isall){
-        unm='';
-      }else{
-        unm=JSON.parse(window.sessionStorage.getItem('username' || '[]'));
-        hcd='username';
+      if (_this.isall) {
+        unm = ''
+      } else {
+        unm = JSON.parse(window.sessionStorage.getItem('username' || '[]'))
+        hcd = 'username'
       }
-      _this.$axios.post('/select/article/page',{
+      _this.$axios.post('/select/article/page', {
         title: _this.articleform.title,
         describe: _this.articleform.describe,
         text: _this.articleform.text,
         username: unm,
         page: 1,
-        op: "or",
+        op: 'or',
         hardcond: hcd
       }).then(resp => {
         if (resp.data.code === 200) {
-          console.log(resp.data.data);
-          var datas = resp.data.data;
-          var i = 0;
-          _this.data0 = [];
-          for(var i = 0; i<datas.length - 1; i++){
-              _this.data0[i] = datas[i];
+          console.log(resp.data.data)
+          var datas = resp.data.data
+          var i = 0
+          _this.data0 = []
+          for (var i = 0; i < datas.length - 1; i++) {
+            _this.data0[i] = datas[i]
           }
-          var datanew = [];
-          var keynew = {};
-          for(var key in _this.data0){
-            for(var key2 in _this.data0[key]){
-              if(Object.prototype.toString.call(_this.data0[key][key2]) === "[object String]"){
-                keynew[key2] = _this.data0[key][key2].substring(0,100).replace(/<[^>]+>/g,"");//remove html attrib
-              }else{
-                keynew[key2] = _this.data0[key][key2];
+          var datanew = []
+          var keynew = {}
+          for (var key in _this.data0) {
+            for (var key2 in _this.data0[key]) {
+              if (Object.prototype.toString.call(_this.data0[key][key2]) === '[object String]') {
+                keynew[key2] = _this.data0[key][key2].substring(0, 100).replace(/<[^>]+>/g, '')// remove html attrib
+              } else {
+                keynew[key2] = _this.data0[key][key2]
               }
             }
-            datanew.push(keynew);
-            keynew={};
+            datanew.push(keynew)
+            keynew = {}
           }
-          _this.articleList = datanew;
-          //this.pagetotal = datas[];
-          _this.pagetotal = parseInt(datas[datas.length - 1]['total']);
-          //this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
-          console.log(_this.pagetoal);
-        }else {
+          _this.articleList = datanew
+          // this.pagetotal = datas[];
+          _this.pagetotal = parseInt(datas[datas.length - 1]['total'])
+          // this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
+          console.log(_this.pagetoal)
+        } else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
       }).catch(failResponse => {})
     },
-    page(currentPage){
-      let _this = this;
-      var unm='';
-      var hcd='';
-      if(_this.isall){
-        unm=_this.$refs.searchBar.keywords;
-      }else{
-        unm=JSON.parse(window.sessionStorage.getItem('username' || '[]'));
-        hcd='username';
+    page (currentPage) {
+      let _this = this
+      var unm = ''
+      var hcd = ''
+      if (_this.isall) {
+        unm = _this.$refs.searchBar.keywords
+      } else {
+        unm = JSON.parse(window.sessionStorage.getItem('username' || '[]'))
+        hcd = 'username'
       }
-      _this.$axios.post('/select/article/page',{
+      _this.$axios.post('/select/article/page', {
         title: _this.$refs.searchBar.keywords,
         describe: _this.$refs.searchBar.keywords,
         text: _this.$refs.searchBar.keywords,
         username: unm,
         page: currentPage,
-        op: "or",
+        op: 'or',
         hardcond: hcd
       }).then(resp => {
         if (resp.data.code === 200) {
-          console.log(resp.data.data);
-          var datas = resp.data.data;
-          var i = 0;
-          _this.data0 = [];
-          for(var i = 0; i<datas.length - 1; i++){
-              _this.data0[i] = datas[i];
+          console.log(resp.data.data)
+          var datas = resp.data.data
+          var i = 0
+          _this.data0 = []
+          for (var i = 0; i < datas.length - 1; i++) {
+            _this.data0[i] = datas[i]
           }
-          var datanew = [];
-          var keynew = {};
-          for(var key in _this.data0){
-            for(var key2 in _this.data0[key]){
-              if(Object.prototype.toString.call(_this.data0[key][key2]) === "[object String]"){
-                keynew[key2] = _this.data0[key][key2].substring(0,100).replace(/<[^>]+>/g,"");//remove html attrib
-              }else{
-                keynew[key2] = _this.data0[key][key2];
+          var datanew = []
+          var keynew = {}
+          for (var key in _this.data0) {
+            for (var key2 in _this.data0[key]) {
+              if (Object.prototype.toString.call(_this.data0[key][key2]) === '[object String]') {
+                keynew[key2] = _this.data0[key][key2].substring(0, 100).replace(/<[^>]+>/g, '')// remove html attrib
+              } else {
+                keynew[key2] = _this.data0[key][key2]
               }
             }
-            datanew.push(keynew);
-            keynew={};
+            datanew.push(keynew)
+            keynew = {}
           }
-          _this.articleList = datanew;
-          //this.pagetotal = datas[];
-          _this.pagetotal = parseInt(datas[datas.length - 1]['total']);
-          //this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
-          console.log(_this.pagetoal);
-        }else {
+          _this.articleList = datanew
+          // this.pagetotal = datas[];
+          _this.pagetotal = parseInt(datas[datas.length - 1]['total'])
+          // this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
+          console.log(_this.pagetoal)
+        } else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
       }).catch(failResponse => {})

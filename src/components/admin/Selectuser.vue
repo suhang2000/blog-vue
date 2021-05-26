@@ -10,7 +10,7 @@
       <el-col :span="6">
       <el-input v-model="regisForm.phone" maxlength="11" show-word-limit placeholder="请输入电话"></el-input>
       </el-col>
-      <el-select v-model="regisForm.gender" placeholder="请选择">
+      <el-select v-model="regisForm.gender" placeholder="请选择性别">
         <el-option label="男" value="M"></el-option>
         <el-option label="女" value="F"></el-option>
       </el-select>
@@ -46,8 +46,8 @@
       label="操作"
       width="330">
       <template slot-scope="scope">
-        <el-button type="text" @click="handleEdit(scope.$index, scope.row)" size="small">编辑</el-button>
-        <el-button type="text" @click="handleDelete(scope.$index, scope.row)" size="small">删除</el-button>
+        <el-button type="text" @click="handleEdit(scope.$index, scope.row)" size="medium">编辑</el-button>
+        <el-button type="text" @click="handleDelete(scope.$index, scope.row)" size="medium">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -88,7 +88,7 @@ export default {
   },
   created: function () {
     if (this.$route.query.username !== undefined) {
-        this.regisForm.uname = this.$route.query.username
+      this.regisForm.uname = this.$route.query.username
     }
     this.load_user()
   },
@@ -103,7 +103,6 @@ export default {
           page: 1
         }).then(resp => {
           if (resp.data.code === 200) {
-            console.log(resp.data.data)
             const datas = resp.data.data
             let i = 0
             const data0 = []
@@ -179,12 +178,11 @@ export default {
       console.log(row)
       this.$router.push({path: '/admin/Fixuser', query: {data: row}})
     },
-    handleDelete: function(index, row) {
-        //this.$alert(row.user_id);
-        this.$axios.post('/delete/user', {user_id: row.user_id}).then(resp => {
-            this.$alert(resp.data.message, {confirmButtonText: 'OK'});
-            this.load_user();
-        }).catch(failResponse => {})
+    handleDelete: function (index, row) {
+      this.$axios.post('/delete/user', {user_id: row.user_id}).then(resp => {
+        this.$alert(resp.data.message, {confirmButtonText: 'OK'})
+        this.load_user()
+      }).catch(failResponse => {})
     }
   }
 }

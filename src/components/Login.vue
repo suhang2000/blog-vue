@@ -99,7 +99,7 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            _this.$store.commit('loginAdmin', _this.loginForm.username)
+            _this.$store.commit('loginAdmin', _this.loginForm.name)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/admin' : path})
           } else {
@@ -164,7 +164,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../assets/loginBG.jpeg") no-repeat center;
+    background: url("../assets/loginBG.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;

@@ -2,7 +2,7 @@
   <body id="paper">
   <el-form ref="regisForm" :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
-    <h3 class="regis_title">用户添加</h3>
+    <h3 class="regis_title">添加用户</h3>
     <div class="block">
       <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
     </div>
@@ -66,7 +66,6 @@ export default {
   },
   methods: {
     register () {
-      const _this = this
       this.$axios.post('/register/user', {
         username: this.regisForm.username,
         user_password: this.regisForm.password,
@@ -103,7 +102,7 @@ export default {
   .regis-container {
     border-radius: 15px;
     background-clip: padding-box;
-    margin: 90px auto;
+    margin: 10% 25%;
     width: 350px;
     padding: 35px 35px 15px 35px;
     background: #fff;
@@ -118,14 +117,11 @@ export default {
   }
 
   #paper {
-    background: url("../../assets/regisBG.jpg") no-repeat center;
+    /*background: url("../../assets/regisBG.jpg") no-repeat center;*/
     height: 100%;
     width: 100%;
     background-size: cover;
     position: fixed;
   }
 
-  body {
-    margin: -5px 0;
-  }
 </style>
