@@ -105,11 +105,6 @@ export default new Router({
           meta: {
             requireAuth: true
           }
-        },
-        {
-          path: '/home/UserInfo1',
-          name: 'UserInfo1',
-          component: UserInfo1
         }
       ]
     },
@@ -132,44 +127,68 @@ export default new Router({
         {
           path: '/admin/AddUser',
           name: 'AddUser',
-          component: AddUser
+          component: AddUser,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/Fixadmin',
           name: 'Fixadmin',
-          component: Fixadmin
+          component: Fixadmin,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/Selectreport',
           name: 'Selectreport',
-          component: Selectreport
+          component: Selectreport,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/Selectarticle',
           name: 'Selectarticle',
-          component: Selectarticle
+          component: Selectarticle,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/Selectreport/detail',
           name: 'Detail',
-          component: Detail
+          component: Detail,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },
     {
       path: '/admin/Fixuser',
       name: 'Fixuser',
-      component: Fixuser
+      component: Fixuser,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/admin/Fixarticle',
       name: 'Fixarticle',
-      component: Fixarticle
+      component: Fixarticle,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/admin/showarticle',
       name: 'showarticleadmin',
-      component: blogshow
+      component: blogshow,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/404',

@@ -8,6 +8,10 @@
               {{ item.navItem }}
             </el-menu-item>
       </el-submenu>
+      <el-menu-item index="2">
+        <i class="el-icon-switch-button"></i>
+        <span slot="title" @click="logout">登出</span>
+      </el-menu-item>
     </el-menu>
   </el-aside>
   <el-main>
@@ -47,6 +51,12 @@ export default {
   },
   created: function () {
     this.$router.push({path: '/admin/Selectuser'})
+  },
+  methods: {
+    logout () {
+      this.$store.commit('logout')
+      this.$router.push('/login')
+    }
   }
 }
 </script>

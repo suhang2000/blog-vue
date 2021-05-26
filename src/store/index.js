@@ -26,7 +26,6 @@ export default new Vuex.Store({
     },
     logout (state) {
       if (state.username !== []) {
-        state.username = ''
         window.sessionStorage.removeItem('username')
         state.username = []
       }
@@ -36,7 +35,6 @@ export default new Vuex.Store({
       //   state.saler = []
       // }
       if (state.adminid !== []) {
-        state.adminid = ''
         window.sessionStorage.removeItem('adminid')
         state.adminid = []
       }
