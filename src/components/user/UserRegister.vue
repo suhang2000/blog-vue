@@ -4,32 +4,30 @@
            label-width="0px" v-loading="false">
     <h3 class="regis_title">用户注册</h3>
     <div class="block">
-      <el-avatar :size="50" icon="el-icon-solid"></el-avatar>
+      <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
     </div>
     <el-form-item prop="username">
-      <el-input type="text" v-model="regisForm.username"
-                auto-complete="off" placeholder="用户名"></el-input>
+      <el-input type="text" v-model="regisForm.username" maxlength="16"
+                auto-complete="off" placeholder="用户名(小于16个字符)"></el-input>
     </el-form-item>
     <el-form-item prop="user_password">
-      <el-input type="password" v-model="regisForm.user_password"
-                auto-complete="off" placeholder="登录密码"></el-input>
+      <el-input type="password" v-model="regisForm.user_password" maxlength="16"
+                auto-complete="off" placeholder="登录密码(小于16个字符)"></el-input>
     </el-form-item>
     <el-form-item prop="verifypwd">
-      <el-input type="password" v-model="regisForm.verifypwd"
+      <el-input type="password" v-model="regisForm.verifypwd" maxlength="16"
                 auto-complete="off" placeholder="再次输入登录密码"></el-input>
+    </el-form-item>
+      <el-form-item prop="email">
+      <el-input type="text" v-model="regisForm.email" maxlength="40"
+                auto-complete="off" placeholder="邮箱"></el-input>
     </el-form-item>
     <el-form-item prop="phone_number">
       <el-input type="text" v-model="regisForm.phone_number"
                 auto-complete="off" placeholder="电话号码（选填）"></el-input>
     </el-form-item>
-      <el-form-item prop="email">
-      <el-input type="text" v-model="regisForm.email"
-                auto-complete="off" placeholder="邮箱"></el-input>
-    </el-form-item>
-
     <el-radio v-model="regisForm.gender" label="F">男</el-radio>
     <el-radio v-model="regisForm.gender" label="M">女</el-radio>
-<!--    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" value-format="yyyy-MM-dd"></el-date-picker>-->
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
     </el-form-item>
@@ -64,10 +62,8 @@ export default{
         verifypwd: '',
         phone_number: '',
         email: '',
-        // address: '',
         profile_photo: '',
         gender: ''
-        // birthday: ''
       }
     }
   },
@@ -80,10 +76,8 @@ export default{
           user_password: this.regisForm.user_password,
           phone_number: this.regisForm.phone,
           email: this.regisForm.email,
-          // address: this.regisForm.address,
           profile_photo: this.regisForm.profile_photo,
           gender: this.regisForm.gender
-          // birthday: this.regisForm.birthday
         })
         .then(resp => {
           if (resp.data.code === 200) {

@@ -4,23 +4,21 @@
            label-width="0px">
     <h3 class="login_title">登录</h3>
     <el-form-item prop="name">
-      <el-input type="text" v-model="loginForm.name"
+      <el-input type="text" v-model="loginForm.name" maxlength="16"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="user_password">
-      <el-input type="password" v-model="loginForm.user_password"
+      <el-input type="password" v-model="loginForm.user_password" maxlength="16"
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" @click="validate_user_login('loginForm')">用户</el-button>
-      <!-- <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" @click="validate_saler_login('loginForm')">商家</el-button> -->
       <el-button type="primary" class="el-icon-setting" style="width: 25%;background: #505458;border: none" @click="validate_admin_login('loginForm')">管理员</el-button>
     </el-form-item>
     <el-form-item>
       <el-link :underline="false" href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
-      <!-- <el-link :underline="false" href="http://localhost:8080/#/register/saler" icon="el-icon-s-shop" type="primary">注册成为商家</el-link> -->
     </el-form-item>
-    <el-link :underline="false" href="http://localhost:8080/#/emailVerify" icon="el-icon-s-help" type="warning">忘记密码或用户名？</el-link>
+    <el-link :underline="false" href="http://localhost:8080/#/resetPassword" icon="el-icon-s-help" type="warning">忘记密码或用户名？</el-link>
   </el-form>
   </body>
 </template>
@@ -68,28 +66,6 @@ export default {
           this.$message('服务器异常')
         })
     },
-    // saler_login () {
-    //   var _this = this
-    //   this.$axios
-    //     .post('/login/saler', {
-    //       sname: this.loginForm.name,
-    //       password: this.loginForm.password
-    //     })
-    //     .then(resp => {
-    //       if (resp.data.code === 200) {
-    //         _this.$store.commit('loginSaler', _this.loginForm)
-    //         const path = _this.$route.query.redirect
-    //         _this.$router.replace({path: path === '/' || path === undefined ? '/saler/dashboard' : path})
-    //       } else {
-    //         this.$alert(resp.data.message, '提示', {
-    //           confirmButtonText: '确定'
-    //         })
-    //       }
-    //     })
-    //     .catch(failResponse => {
-    //       this.$message('服务器异常')
-    //     })
-    // },
     admin_login () {
       const _this = this
       this.$axios
@@ -122,16 +98,6 @@ export default {
         }
       })
     },
-    // validate_saler_login (formName) {
-    //   this.$refs[formName].validate((valid) => {
-    //     if (valid) {
-    //       this.saler_login()
-    //     } else {
-    //       console.log('error submit!!')
-    //       return false
-    //     }
-    //   })
-    // },
     validate_admin_login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
