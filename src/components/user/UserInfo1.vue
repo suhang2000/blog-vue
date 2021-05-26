@@ -234,9 +234,9 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
-    getImgUrl (src) {
-      return require('@/assets/avatar/' + src)
-    },
+    // getImgUrl (src) {
+    //   return require('@/assets/avatar/' + src)
+    // },
     handleChange (file, fileList) {
       const _this = this
       this.fileList = fileList

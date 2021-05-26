@@ -4,10 +4,15 @@
       <el-aside>
         <div>
           <el-image
-            lazy
-            :src="getImgUrl(user.profile_photo)"
-            style="float: right;margin-right: 50px;margin-top: 50px">
+            v-if="user.profile_photo"
+            :src="user.profile_photo"
+            style="margin-top: 50px"
+            @click="changeAvatar()">
           </el-image>
+          <span v-else>
+            <el-button icon="el-icon-user-solid" circle style="margin-top: 50px" @click="changeAvatar()"></el-button>
+          </span>
+          <avatar-form @onChange="loadUser()" ref="ava"></avatar-form>
         </div>
         <el-button type="success" style="margin-top: 50px" @click="editUser()">修改信息</el-button>
         <user-form @onSubmit="loadUser()" ref="edit"></user-form>
@@ -30,13 +35,14 @@
 
 <script>
 import UserForm from './UserForm'
+import AvatarForm from './avatarForm'
 export default {
   name: 'UserInfo',
-  components: {UserForm},
+  components: {AvatarForm, UserForm},
   data () {
     return {
       user: {
-        // profile_photo: '@/assets/avatar/1.jpg'
+        profile_photo: '../static/avatar/16.jpg'
       }
     }
   },
@@ -46,7 +52,6 @@ export default {
       this.$axios.get('/home/user/' + _this.$store.state.username).then(resp => {
         if (resp && resp.status === 200) {
           _this.user = resp.data.data
-          console.log(resp.data.data)
         }
       }).catch(failResponse => {
         _this.$message('加载失败')
@@ -56,20 +61,21 @@ export default {
       this.$refs.edit.dialogFormVisible = true
       this.$refs.edit.form = {
         // uname: this.user.uname,
-        phone: this.user.phone,
-        email: this.user.email,
-        address: this.user.address,
-        gender: this.user.gender,
-        birthday: this.user.birthday,
-        icon: this.user.icon
+        phone_number: this.user.phone_number,
+        // email: this.user.email,
+        gender: this.user.gender
       }
     },
-    getImgUrl (src) {
-      return require('@/assets/avatar/' + src)
-    },
-    single_quotes (doubleQuotes) {
-      return JSON.stringify(doubleQuotes).replace(/\"/g, "'")
+    changeAvatar () {
+      this.$refs.ava.dialogVisible = true
+      this.$refs.ava.imageURL = this.user.profile_photo
     }
+    // getImgUrl (src) {
+    //   return require('@/assets/avatar/' + src)
+    // }
+    // single_quotes (doubleQuotes) {
+    //   return JSON.stringify(doubleQuotes).replace(/\"/g, "'")
+    // }
   },
   created () {
     this.loadUser()

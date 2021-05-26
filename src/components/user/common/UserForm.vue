@@ -5,17 +5,11 @@
       :visible.sync="dialogFormVisible"
       @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">
-<!--        <el-form-item label="昵称" :label-width="formLabelWidth" prop="uname">-->
-<!--          <el-input v-model="form.uname" autocomplete="off"></el-input>-->
-<!--        </el-form-item>-->
         <el-form-item label="电话" :label-width="formLabelWidth" prop="phone">
           <el-input v-model="form.phone_number" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" :label-width="formLabelWidth" prop="email">
-          <el-input v-model="form.email" autocomplete="off"></el-input>
-        </el-form-item>
-<!--        <el-form-item label="头像" :label-width="formLabelWidth" prop="icon">-->
-<!--          <el-input v-model="form.profile_photo" autocomplete="off" placeholder="图片 URL"></el-input>-->
+<!--        <el-form-item label="邮箱" :label-width="formLabelWidth" prop="email">-->
+<!--          <el-input v-model="form.email" autocomplete="off"></el-input>-->
 <!--        </el-form-item>-->
         <el-form-item label="性别" :label-width="formLabelWidth" prop="gender">
           <el-select v-model="form.gender" placeholder="请选择性别">
@@ -48,9 +42,8 @@ export default {
       form: {
         // uname: '',
         phone_number: '',
-        email: '',
-        gender: '',
-        profile_photo: ''
+        // email: '',
+        gender: ''
       },
       formLabelWidth: '120px'
     }
@@ -59,9 +52,8 @@ export default {
     clear () {
       this.form = {
         phone_number: '',
-        email: '',
-        gender: '',
-        profile_photo: ''
+        // email: '',
+        gender: ''
       }
     },
     onSubmit () {
@@ -70,11 +62,9 @@ export default {
       this.$axios
         .post('/home/user/info', {
           username: _this.$store.state.username,
-          password: 'password',
           phone_number: this.form.phone_number,
-          email: this.form.email,
-          gender: this.form.gender,
-          profile_photo: this.form.profile_photo
+          // email: this.form.email,
+          gender: this.form.gender
         }).then(resp => {
           if (resp && resp.status === 200) {
             this.dialogFormVisible = false
