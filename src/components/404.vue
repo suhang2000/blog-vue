@@ -11,7 +11,7 @@
         <div class="bullshit__oops">OOPS!</div>
         <div class="bullshit__headline">{{ message }}</div>
         <div class="bullshit__info">请检查你输入的链接是否正确</div>
-        <a href="/" class="bullshit__return-home">回到首页</a>
+        <a href="/#/login" class="bullshit__return-home">回到首页</a>
       </div>
     </div>
   </div>

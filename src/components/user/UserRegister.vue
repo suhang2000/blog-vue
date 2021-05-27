@@ -124,7 +124,7 @@ export default{
     color: #505458;
   }
   #paper {
-    background: url("../../assets/regisBG.jpg") no-repeat center;
+    background: url("../../assets/loginBG.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;

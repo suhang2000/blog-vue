@@ -1,8 +1,8 @@
 <template>
 <el-container style="border: 1px solid #eee; min-height: 900px">
   <el-aside style="background-color: rgb(238, 241, 246)">
-    <el-menu router>
-      <el-submenu  index="1">
+    <el-menu router default-active="1">
+      <el-submenu index="1">
          <template slot="title"><i class="el-icon-s-home"></i>信息管理</template>
             <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
               {{ item.navItem }}
@@ -55,7 +55,7 @@ export default {
   methods: {
     logout () {
       this.$store.commit('logout')
-      this.$router.push('/login')
+      this.$router.push('/#/login')
     }
   }
 }

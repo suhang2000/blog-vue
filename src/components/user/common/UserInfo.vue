@@ -8,6 +8,9 @@
             :src="user.profile_photo"
             style="margin-top: 50px"
             @click="changeAvatar()">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline" @click="changeAvatar()"></i>
+            </div>
           </el-image>
           <span v-else>
             <el-button icon="el-icon-user-solid" circle style="margin-top: 50px" @click="changeAvatar()"></el-button>

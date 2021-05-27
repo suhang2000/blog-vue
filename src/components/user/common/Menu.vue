@@ -13,7 +13,7 @@
                @click="logout"
                style="float:right;font-size: 20px;color: #222;padding-top: 8px;margin-top: 10px;margin-right: 20px"
                v-show="isLogin"></el-button>
-    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">我的博客</span>
+    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">博客系统</span>
   </el-menu>
 </template>
 

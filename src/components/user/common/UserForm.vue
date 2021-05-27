@@ -5,7 +5,7 @@
       :visible.sync="dialogFormVisible"
       @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">
-        <el-form-item label="电话" :label-width="formLabelWidth" prop="phone">
+        <el-form-item label="电话" :label-width="formLabelWidth" prop="phone_number">
           <el-input v-model="form.phone_number" autocomplete="off"></el-input>
         </el-form-item>
 <!--        <el-form-item label="邮箱" :label-width="formLabelWidth" prop="email">-->
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-// import {validateEmail, validatePhone} from '../../../utils/validate'
+import {validatePhone} from '../../../utils/validate'
 
 export default {
   name: 'UserForm',
@@ -35,7 +35,7 @@ export default {
     return {
       rules: {
         // uname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-        // phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
+        phone_number: [{validator: validatePhone, trigger: 'blur'}]
         // email: [{required: true, validator: validateEmail, trigger: 'blur'}]
       },
       dialogFormVisible: false,

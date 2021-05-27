@@ -53,7 +53,7 @@
       width="330">
       <template slot-scope="scope">
         <el-button type="text" @click="handlelookup(scope.$index, scope.row)" size="small">详情</el-button>
-        <el-button type="text" @click="handleDelete(scope.$index, scope.row)" size="small">已解决</el-button>
+        <el-button type="text" @click="handleDelete(scope.$index, scope.row)" size="small">已解决（删除）</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -115,13 +115,13 @@ export default {
             for (i = 0; i < datas.length - 1; i++) {
               data0[i] = datas[i]
               let str = ''
-              //console.log(data0[i].description)
+              // console.log(data0[i].description)
               str = data0[i].description
               str = str.substring(0, 10)
               console.log(str)
               str = str.concat('...')
               data0[i].shortdescription = str
-              //console.log(str)
+              // console.log(str)
             }
             this.tableData = data0
             // this.pagetotal = datas[];
@@ -149,13 +149,13 @@ export default {
           for (i = 0; i < datas.length - 1; i++) {
             data0[i] = datas[i]
             let str = ''
-            //console.log(data0[i].description)
+            // console.log(data0[i].description)
             str = data0[i].description
             str = str.substring(0, 10)
             console.log(str)
             str = str.concat('...')
             data0[i].shortdescription = str
-            //console.log(str)
+            // console.log(str)
           }
           this.tableData = data0
           // this.pagetotal = datas[];
@@ -177,12 +177,12 @@ export default {
       console.log(row)
       this.$router.push({path: '/admin/Selectreport/detail', query: {data: row}})
     },
-    handleDelete: function(index, row) {
-        this.$alert(row.blog_id);
-        this.$axios.post('/delete/report', {blog_id: row.blog_id}).then(resp => {
-            this.$alert(resp.data.message, {confirmButtonText: 'OK'});
-            this.load_report();
-        }).catch(failResponse => {})
+    handleDelete: function (index, row) {
+      this.$alert(row.blog_id)
+      this.$axios.post('/delete/report', {blog_id: row.blog_id}).then(resp => {
+        this.$alert(resp.data.message, {confirmButtonText: 'OK'})
+        this.load_report()
+      }).catch(failResponse => {})
     }
   }
 }

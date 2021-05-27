@@ -23,7 +23,6 @@ import blogshow from '../components/user/blogshow'
 import Report from '../components/user/common/Report'
 
 import UserInfo from '../components/user/common/UserInfo'
-import UserInfo1 from '../components/user/UserInfo1'
 
 import Page404 from '../components/404'
 Vue.use(Router)
