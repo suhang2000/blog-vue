@@ -26,17 +26,14 @@
             <el-dropdown-item command="email">修改邮箱</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-button type="info" style="margin-top: 50px" @click="changepassword()">修改密码</el-button>
+        <el-button type="danger" style="float: left;margin-top: 20px;margin-left: 10px" @click="changepassword()">修改个人密码</el-button>
         <user-form @onSubmit="loadUser()" ref="edit"></user-form>
         <name-change @changeName="logout" ref="nameChange"></name-change>
         <email-change @changeEmail="loadUser" ref="emailChange"></email-change>
         <password-change @onSubmit="logout()" ref="passwordChange"></password-change>
       </el-aside>
       <el-main>
-         <el-card style lang="scss" class="box-card  "  >
-  <div slot="header" class="clearfix" >
-    <span style="font-size:20px">这是{{user.username}}的个人信息</span>
-  </div>
+        <div style="margin-top: 100px;margin-left: 100px">
         <p class="user" align="left">id: {{user.user_id}}</p>
         <br>
         <p class="user" align="left">昵称: {{user.username}}</p>
@@ -47,8 +44,8 @@
         <br>
         <p class="user" align="left">性别: {{user.gender}}</p>
         <br>
+        </div>
 <!--        <el-button @click="afterVefified">verified</el-button>-->
-         </el-card>
       </el-main>
     </el-container>
   </div>
@@ -63,7 +60,7 @@ import EmailChange from './EmailChange'
 import PasswordChange from './PasswordChange'
 export default {
   name: 'UserInfo',
-  components: {EmailChange, NameChange, VerifyInfo, AvatarForm, UserForm,PasswordChange},
+  components: {EmailChange, NameChange, VerifyInfo, AvatarForm, UserForm, PasswordChange},
   data () {
     return {
       user: {
@@ -121,7 +118,6 @@ export default {
         this.$refs.emailChange.dialogVisible = true
         this.$refs.emailChange.email = this.user.email
       }
-
     },
     logout () {
       this.$store.commit('logout')
@@ -144,14 +140,5 @@ export default {
   .user {
     font-size: x-large;
     font-family: 华文行楷;
-  }
-  .box-card {
-    min-width: 380px;
-    margin-right: 0px;
-    margin-top: 0%;
-    height: 580px;
-    width: 500px;
-    background: transparent !important;
-
   }
 </style>

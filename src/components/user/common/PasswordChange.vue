@@ -25,8 +25,8 @@
 
 <script>
 export default {
-  name: "PasswordChange.vue",
-  data() {
+  name: 'PasswordChange',
+  data () {
     var validatePass0 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入旧密码'))
@@ -56,7 +56,7 @@ export default {
       dialogVisible: false,
       password: '',
       ruleForm: {
-        oldpass:'',
+        oldpass: '',
         pass: '',
         checkPass: ''
       },
@@ -69,7 +69,7 @@ export default {
         ],
         checkPass: [
           {validator: validatePass2, trigger: 'blur'}
-        ],
+        ]
       }
     }
   },
@@ -91,7 +91,7 @@ export default {
       })
   },
   methods: {
-    clear() {
+    clear () {
       this.password = ''
     },
     submitForm (formName) {
@@ -111,14 +111,13 @@ export default {
             })
               .then(resp => {
                 if (resp.data.code === 400) {
-
                   this.$message({
                     type: 'warning',
                     message: resp.data.message
                   })
                 }
                 if (resp.data.code === 200) {
-                  this.dialogVisible = false;
+                  this.dialogVisible = false
                   this.$router.replace('/login')
                   this.$message({
                     type: 'success',
@@ -130,18 +129,16 @@ export default {
               .catch(failResponse => {
                 this.$message('服务器异常')
               })
-
           } else {
             console.log('error submit!!')
             return false
           }
         }
       })
-
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
-    },
+    }
   }
 }
 </script>
