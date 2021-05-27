@@ -7,7 +7,7 @@
       <el-input type="text" v-model="loginForm.name" maxlength="16"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
-    <el-form-item prop="password">
+    <el-form-item prop="user_password">
       <el-input type="password" v-model="loginForm.user_password" maxlength="16"
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
