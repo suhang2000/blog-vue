@@ -43,8 +43,8 @@ export default {
         callback(new Error('两次密码必须相同！'))
       } else if (value === '' && this.fixInfo.password === '' && this.fixInfo.old_password !== '') {
         callback(new Error('请输入新密码及确认'))
-      } else if (value === this.fixInfo.password && this.fixInfo.old_password === value) {
-        callback(new Error('新与原密码不得相同'))
+      // } else if (value === this.fixInfo.password && this.fixInfo.old_password === value) {
+      //   callback(new Error('新密码与原密码不得相同'))
       } else {
         callback()
       }
