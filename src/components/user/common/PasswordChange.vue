@@ -2,6 +2,10 @@
   <div>
         <el-dialog title="修改密码" :visible.sync="dialogVisible" :append-to-body="true" width="530px">
       <el-form :model="ruleForm"  status-icon :rules="rules" ref="ruleForm"  class="demo-ruleForm">
+        <el-form-item  label="旧密码" prop="oldpass">
+    <i class="el-icon-lock"></i><el-input style="background-color: transparent"  type="password" v-model="ruleForm.oldpass" autocomplete="off"></el-input>
+  </el-form-item>
+
   <el-form-item  label="密码" prop="pass">
     <i class="el-icon-lock"></i><el-input style="background-color: transparent"  type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
   </el-form-item>
@@ -23,6 +27,12 @@
 export default {
   name: "PasswordChange.vue",
   data() {
+    var validatePass0 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入旧密码'))
+      }
+      callback()
+    }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
@@ -46,10 +56,14 @@ export default {
       dialogVisible: false,
       password: '',
       ruleForm: {
+        oldpass:'',
         pass: '',
         checkPass: ''
       },
       rules: {
+        oldpass: [
+          { validator: validatePass0, trigger: 'blur' }
+        ],
         pass: [
           {validator: validatePass, trigger: 'blur'}
         ],
@@ -59,6 +73,23 @@ export default {
       }
     }
   },
+  created: function () {
+    const _this = this
+    this.$axios.get('/userInfo_select', {
+      params: {
+        username: this.$store.state.username
+      }
+    })
+      .then(resp => {
+        if (resp.data.code === 200) {
+          _this.password = resp.data.data[0].user_password
+        } else {
+        }
+      })
+      .catch(failResponse => {
+        this.$message('服务器异常')
+      })
+  },
   methods: {
     clear() {
       this.password = ''
@@ -66,6 +97,12 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          if (this.ruleForm.oldpass !== this.password) {
+            this.$message({
+              type: 'warning',
+              message: '验证旧密码失败'
+            })
+          } else if (this.ruleForm.oldpass === this.password) {
             this.$axios.get('/changepsd', {
               params: {
                 value: this.ruleForm.pass,
@@ -94,11 +131,13 @@ export default {
                 this.$message('服务器异常')
               })
 
-        } else {
-          console.log('error submit!!')
-          return false
+          } else {
+            console.log('error submit!!')
+            return false
+          }
         }
       })
+
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()

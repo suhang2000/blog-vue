@@ -24,13 +24,13 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="name">修改昵称</el-dropdown-item>
             <el-dropdown-item command="email">修改邮箱</el-dropdown-item>
-            <el-dropdown-item command="password">修改密码</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+        <el-button type="info" style="margin-top: 50px" @click="changepassword()">修改密码</el-button>
         <user-form @onSubmit="loadUser()" ref="edit"></user-form>
         <name-change @changeName="logout" ref="nameChange"></name-change>
         <email-change @changeEmail="loadUser" ref="emailChange"></email-change>
-        <password-change @changePassword="logout" ref="passwordChange"></password-change>
+        <password-change @onSubmit="logout()" ref="passwordChange"></password-change>
       </el-aside>
       <el-main>
          <el-card style lang="scss" class="box-card  "  >
@@ -84,6 +84,9 @@ export default {
         _this.$message('加载失败')
       })
     },
+    changepassword () {
+      this.$refs.passwordChange.dialogVisible = true
+    },
     editUser () {
       this.$refs.edit.dialogFormVisible = true
       this.$refs.edit.form = {
@@ -118,11 +121,7 @@ export default {
         this.$refs.emailChange.dialogVisible = true
         this.$refs.emailChange.email = this.user.email
       }
-      if (this.com === 'password') {
-        console.log('change your password')
-        this.$refs.passwordChange.dialogVisible =  true
-        this.$refs.passwordChange.pass = this.user.password
-      }
+
     },
     logout () {
       this.$store.commit('logout')
