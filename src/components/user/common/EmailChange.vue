@@ -1,19 +1,19 @@
 <template>
   <div>
     <el-dialog
-      title="修改昵称"
+      title="修改Email"
       :visible.sync="dialogVisible"
       @close="clear">
       <div>
         <el-form>
-          <el-form-item label="请输入新的昵称">
-            <el-input v-model="username" placeholder="username" style="margin-top: 10px"></el-input>
+          <el-form-item label="请输入新的Email">
+            <el-input v-model="email" placeholder="email" style="margin-top: 10px"></el-input>
           </el-form-item>
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="changeName">确 定</el-button>
+        <el-button type="primary" @click="changeEmail">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -21,29 +21,30 @@
 
 <script>
 export default {
-  name: 'NameChange',
+  name: 'EmailChange',
   data () {
     return {
       dialogVisible: false,
-      username: ''
+      email: ''
     }
   },
   methods: {
     clear () {
-      this.username = ''
+      this.email = ''
     },
-    changeName () {
+    changeEmail () {
       const _this = this
+      console.log(_this.email)
       this.$axios
-        .post('/changename', {
+        .post('/changeemail', {
           username: _this.$store.state.username,
-          username_new: _this.username
+          email: _this.email
         })
         .then(resp => {
           if (resp.data.code === 200) {
             this.$message(resp.data.message)
             this.dialogVisible = false
-            this.$emit('changeName')
+            this.$emit('changeEmail')
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

@@ -28,6 +28,7 @@
         </el-dropdown>
         <user-form @onSubmit="loadUser()" ref="edit"></user-form>
         <name-change @changeName="logout" ref="nameChange"></name-change>
+        <email-change @changeEmail="loadUser" ref="emailChange"></email-change>
       </el-aside>
       <el-main>
         <p class="user" align="left">id: {{user.user_id}}</p>
@@ -40,7 +41,7 @@
         <br>
         <p class="user" align="left">性别: {{user.gender}}</p>
         <br>
-        <el-button @click="afterVefified">verified</el-button>
+<!--        <el-button @click="afterVefified">verified</el-button>-->
       </el-main>
     </el-container>
   </div>
@@ -51,9 +52,10 @@ import UserForm from './UserForm'
 import AvatarForm from './avatarForm'
 import VerifyInfo from './VerifyInfo'
 import NameChange from './NameChange'
+import EmailChange from './EmailChange'
 export default {
   name: 'UserInfo',
-  components: {NameChange, VerifyInfo, AvatarForm, UserForm},
+  components: {EmailChange, NameChange, VerifyInfo, AvatarForm, UserForm},
   data () {
     return {
       user: {
@@ -98,11 +100,15 @@ export default {
     afterVefified () {
       this.isVerified = true
       console.log(this.isVerified)
-      this.com = 'name'
       if (this.com === 'name') {
         console.log('change your name')
         this.$refs.nameChange.dialogVisible = true
         this.$refs.nameChange.username = this.user.username
+      }
+      if (this.com === 'email') {
+        console.log('change your email')
+        this.$refs.emailChange.dialogVisible = true
+        this.$refs.emailChange.email = this.user.email
       }
     },
     logout () {

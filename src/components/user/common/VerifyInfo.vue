@@ -39,28 +39,28 @@ export default {
     },
     onVerify () {
       console.log(this.codeForm.code)
-      // const _this = this
-      // this.$axios
-      //   .post('/verifycode', {
-      //     email: _this.email,
-      //     code: _this.codeForm.code
-      //   })
-      //   .then(resp => {
-      //     if (resp.data.code === 200) {
-      //       this.$message(resp.data.message)
-      //       this.dialogVisible = false
-      //       this.$emit('verified')
-      //     } else {
-      //       this.$alert(resp.data.message, '提示', {
-      //         confirmButtonText: '确定'
-      //       })
-      //     }
-      //   })
-      //   .catch(failResponse => {
-      //     this.$message('服务器异常')
-      //   })
-      this.dialogVisible = false
-      this.$emit('verified')
+      const _this = this
+      this.$axios
+        .post('/verifycode', {
+          email: _this.email,
+          code: _this.codeForm.code
+        })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            this.$message(resp.data.message)
+            this.dialogVisible = false
+            this.$emit('verified')
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
+        .catch(failResponse => {
+          this.$message('服务器异常')
+        })
+      // this.dialogVisible = false
+      // this.$emit('verified')
     },
     sendEmail () {
       console.log('sending email...')
