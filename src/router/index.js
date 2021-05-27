@@ -202,7 +202,10 @@ export default new Router({
     {
       path: '/home/showarticle/Report',
       name: 'Report',
-      component: Report
+      component: Report,
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 })

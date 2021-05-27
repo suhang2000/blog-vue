@@ -76,7 +76,7 @@ export default {
   data () {
     return {
       pagetotal: 10,
-      pagesize: 10,
+      pagesize: 5,
       regisForm: {
         id: '',
         title: '',
@@ -178,7 +178,6 @@ export default {
       this.$router.push({path: '/admin/Selectreport/detail', query: {data: row}})
     },
     handleDelete: function (index, row) {
-      this.$alert(row.blog_id)
       this.$axios.post('/delete/report', {blog_id: row.blog_id}).then(resp => {
         this.$alert(resp.data.message, {confirmButtonText: 'OK'})
         this.load_report()

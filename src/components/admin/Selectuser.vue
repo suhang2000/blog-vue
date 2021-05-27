@@ -70,7 +70,7 @@ export default {
   data () {
     return {
       pagetotal: 10,
-      pagesize: 10,
+      pagesize: 5,
       regisForm: {
         user_id: '',
         uname: '',

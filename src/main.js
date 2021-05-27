@@ -16,50 +16,52 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 // 这里要根据admin和saler的具体返回值（名字）来改
-// router.beforeEach((to, from, next) => {
-//   if (to.meta.requireAuth) {
-//     console.log(to.path)
-//     let flag = false
-//     const userPathList = ['/home/cart', '/home/order', '/home/orderToPay', '/home/orderToSend', '/home/userInfo']
-//     const salerPathList = ['/saler/dashboard', '/saler/order', '/saler/product', '/saler/salerinfo']
-//     const adminPathList = ['/admin/dashboard', '/admin/product', '/admin/user', '/admin/saler', '/admin/order', '/admin/admininfo', '/admin/register', '/admin/pwdreset']
-//     console.log(userPathList.indexOf(to.path) !== -1 && store.state.username !== '')
-//     console.log(salerPathList.indexOf(to.path) !== -1 && store.state.saler.name !== '')
-//     console.log(adminPathList.indexOf(to.path) !== -1 && store.state.admin.name !== '')
-//     if (userPathList.indexOf(to.path) !== -1 && store.state.username !== '') {
-//       console.log('user')
-//       flag = true
-//       next()
-//     }
-//     if (salerPathList.indexOf(to.path) !== -1 && store.state.saler.name !== '') {
-//       console.log('saler')
-//       flag = true
-//       next()
-//     }
-//     if (adminPathList.indexOf(to.path) !== -1 && store.state.admin.name !== '') {
-//       console.log('admin')
-//       flag = true
-//       next()
-//     }
-//     if (flag === false) {
-//       next({
-//         path: '/login',
-//         query: {redirect: to.fullPath}
-//       })
-//     }
-//     // if (store.state.username || store.state.saler.name || store.state.admin.name) {
-//     //   next()
-//     // } else {
-//     //   next({
-//     //     path: '/login',
-//     //     query: {redirect: to.fullPath}
-//     //   })
-//     // }
-//   } else {
-//     next()
-//   }
-// }
-// )
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    console.log(to.path)
+    let flag = false
+    const userPathList = ['/home/myblog', '/home/selectarticle', '/home/fixarticle', '/home/showarticle',
+      '/home/userinfo']
+    const adminPathList = ['/admin/Selectuser', '/admin/AddUser', '/admin/Fixadmin', '/admin/Selectreport',
+      '/admin/Selectarticle', '/admin/Selectreport/detail', '/admin/Fixuser', '/admin/Fixarticle', '/admin/showarticle',
+      '/home/showarticle/Report']
+    console.log(userPathList.indexOf(to.path) !== -1 && store.state.username !== '')
+    console.log((to.path).match('Fixarticle') == 'Fixarticle')
+    console.log(adminPathList.indexOf(to.path) !== -1 && store.state.adminid !== '')
+    if (userPathList.indexOf(to.path) !== -1 && store.state.username !== '') {
+      console.log('user')
+      flag = true
+      next()
+    }
+    if ((to.path).match('article') == 'article' && store.state.username !== '') {
+      console.log('article')
+      flag = true
+      next()
+    }
+    if (adminPathList.indexOf(to.path) !== -1 && store.state.adminid !== '') {
+      console.log('admin')
+      flag = true
+      next()
+    }
+    if (flag === false) {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      })
+    }
+    // if (store.state.username || store.state.saler.name || store.state.admin.name) {
+    //   next()
+    // } else {
+    //   next({
+    //     path: '/login',
+    //     query: {redirect: to.fullPath}
+    //   })
+    // }
+  } else {
+    next()
+  }
+}
+)
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,22 +1,31 @@
 <template>
     <body id="paper">
-  <el-form ref="fixInfo" :model="fixInfo" :rules="rules" class="regis-container" label-position="left"
-           label-width="0px" v-loading="false">
-    <h3 class="regis_title">正在修改用户的Id为：{{ userInfo.user_id }}</h3>
-    <div class="block">
+  <el-form ref="fixInfo" :model="fixInfo" :rules="rules" class="regis-container" v-loading="false">
+    <h3 class="regis_title">正在修改Id为{{ userInfo.user_id }}的用户</h3>
+    <div class="block" style="margin-bottom: 20px">
       <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
     </div>
-    <el-form-item prop="username">
-      <el-input type="text" v-model="fixInfo.username"
-                auto-complete="off" :placeholder="userInfo.username"></el-input>
-    </el-form-item>
-    <el-form-item prop="phone">
+<!--    <el-form-item prop="username">-->
+<!--      <el-input type="text" v-model="fixInfo.username"-->
+<!--                auto-complete="off" :placeholder="userInfo.username"></el-input>-->
+<!--    </el-form-item>-->
+    <el-form-item prop="phone" label="电话号码">
       <el-input type="text" v-model="fixInfo.phone"
                 auto-complete="off" :placeholder="userInfo.phone"></el-input>
     </el-form-item>
-    <el-radio v-model="fixInfo.gender" label="M">男</el-radio>
-    <el-radio v-model="fixInfo.gender" label="F">女</el-radio>
-    <el-form-item style="width: 100%">
+    <el-form-item label="性别">
+      <el-radio-group v-model="fixInfo.gender">
+        <el-radio label="男"></el-radio>
+        <el-radio label="女"></el-radio>
+      </el-radio-group>
+    </el-form-item>
+<!--    <el-radio v-model="fixInfo.gender" label="M">男</el-radio>-->
+<!--    <el-radio v-model="fixInfo.gender" label="F">女</el-radio>-->
+<!--        <el-select v-model="fixInfo.gender" placeholder="请选择性别">-->
+<!--          <el-option label="男" value="男"></el-option>-->
+<!--          <el-option label="女" value="女"></el-option>-->
+<!--        </el-select>-->
+    <el-form-item style="width: 100%; margin-top: 20px">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="user_fix('fixInfo')">修改</el-button>
     </el-form-item>
   </el-form>
@@ -30,8 +39,8 @@ export default {
   data () {
     return {
       rules: {
-        username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-        phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
+        // username: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        phone: [{required: false, validator: validatePhone, trigger: 'blur'}]
       },
       userInfo: {
         user_id: '',
@@ -48,7 +57,7 @@ export default {
     }
   },
   created () {
-    var temp = this.$route.query.data
+    const temp = this.$route.query.data
     this.userInfo.user_id = temp.user_id
     this.userInfo.username = temp.username
     this.userInfo.phone = temp.phone_number
@@ -59,10 +68,9 @@ export default {
     user_fix (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('success')
           this.$axios.post('/fix/user', {
             user_id: this.userInfo.user_id,
-            username: this.fixInfo.username,
+            // username: this.userInfo.username,
             phone_number: this.fixInfo.phone,
             gender: this.fixInfo.gender
           }).then(resp => {

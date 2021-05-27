@@ -33,60 +33,61 @@
 </template>
 
 <script>
-    export default {
-        name: "Report",
-        data() {
-            return {
-                rules: {
-                    reason: [{required: true, message: '理由不得为空', trigger: 'blur'}],
-                    description: [{required: true, message: '请输入详细描述', trigger: 'blur'}]
-                },
-                reportInfo: {
-                    title: '',
-                    username: '',
-                    reason: '',
-                    description: '',
-                    type: '',
-                    blog_id: ''
-                }
-            }
-        },
-        created() {
-            var temp = this.$route.query
-            this.reportInfo.title = temp.content['title']
-            this.reportInfo.username = temp.username
-            this.reportInfo.blog_id = temp.blog_id
-        },
-        methods: {
-            report(formName){this.$refs[formName].validate((valid) => {
+export default {
+  name: 'Report',
+  data () {
+    return {
+      rules: {
+        reason: [{required: true, message: '理由不得为空', trigger: 'blur'}],
+        description: [{required: true, message: '请输入详细描述', trigger: 'blur'}]
+      },
+      reportInfo: {
+        title: '',
+        username: '',
+        reason: '',
+        description: '',
+        type: '',
+        blog_id: ''
+      }
+    }
+  },
+  created () {
+    var temp = this.$route.query
+    this.reportInfo.title = temp.content['title']
+    this.reportInfo.username = temp.username
+    this.reportInfo.blog_id = temp.blog_id
+  },
+  methods: {
+    report (formName) {
+      this.$refs[formName].validate((valid) => {
         if (valid && this.reportInfo.type !== '') {
-          alert('success')
-            this.$axios.post('/report/article', {
-                title: this.reportInfo.title,
-                username: this.reportInfo.username,
-                reason: this.reportInfo.reason,
-                description: this.reportInfo.description,
-                type: this.reportInfo.type,
-                blog_id: this.reportInfo.blog_id
-            }).then(resp => {
-          if (resp.data.code === 200) {
-            this.$alert(resp.data.message, {confirmButtonText: 'OK'});
-            this.$router.push('/home/blog');
-          }else {
-            this.$alert('Report failed!', {confirmButtonText: 'OK'})
-          }
-        })
-        .catch(failResponse => {})
+          this.$message('举报成功')
+          this.$axios.post('/report/article', {
+            title: this.reportInfo.title,
+            username: this.reportInfo.username,
+            reason: this.reportInfo.reason,
+            description: this.reportInfo.description,
+            type: this.reportInfo.type,
+            blog_id: this.reportInfo.blog_id
+          }).then(resp => {
+            if (resp.data.code === 200) {
+              this.$alert(resp.data.message, {confirmButtonText: 'OK'})
+              this.$router.push('/home/blog')
+            } else {
+              this.$alert('举报失败!', {confirmButtonText: 'OK'})
+            }
+          })
+            .catch(failResponse => {})
         } else if (this.reportInfo.type === '') {
-                this.$alert('请输入举报类型!')
+          this.$alert('请输入举报类型!')
         } else {
           console.log('error submit!!')
           return false
         }
       })
-            }
-        }
     }
+  }
+}
 </script>
 
 <style scoped>
@@ -119,4 +120,3 @@
     height: 50px;
   }
 </style>
-

@@ -78,9 +78,9 @@ export default {
   data () {
     return {
       value: null,
-      gettime : '',
+      gettime: '',
       pagetotal: 0,
-      pagesize: 2,
+      pagesize: 5,
       isadmin: false,
       btnChangeEnable: false,
       blog_user_id: '',
@@ -89,7 +89,7 @@ export default {
       blog_id: -1,
       commentList: [],
       content: {
-          text: this.value
+        text: this.value
       },
       mycomment: '',
       editorOption: {
@@ -105,166 +105,166 @@ export default {
       }
     }
   },
-  created() {
-    this.oncreate();
+  created () {
+    this.oncreate()
   },
   watch: {
-    value(val) {
-      this.content.text = this.value;
+    value (val) {
+      this.content.text = this.value
     }
   },
   computed: {
-    editor() {
-      return this.$refs.myQuillEditor.quill;
+    editor () {
+      return this.$refs.myQuillEditor.quill
     }
   },
   methods: {
-    onEditorFocus(editor) {
+    onEditorFocus (editor) {
       // 富文本获得焦点时的事件
-      editor.enable(false); // 在获取焦点的时候禁用
+      editor.enable(false) // 在获取焦点的时候禁用
     },
-    getCurrentTime() {
-      var _this = this;
-      let yy = new Date().getFullYear();
-      let mm = new Date().getMonth()+1;
-      let dd = new Date().getDate();
-      let hh = new Date().getHours();
-      let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
-      let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
-      _this.gettime = yy+'/'+mm+'/'+dd+' '+hh+':'+mf+':'+ss;
+    getCurrentTime () {
+      var _this = this
+      let yy = new Date().getFullYear()
+      let mm = new Date().getMonth() + 1
+      let dd = new Date().getDate()
+      let hh = new Date().getHours()
+      let mf = new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()
+      let ss = new Date().getSeconds() < 10 ? '0' + new Date().getSeconds() : new Date().getSeconds()
+      _this.gettime = yy + '/' + mm + '/' + dd + ' ' + hh + ':' + mf + ':' + ss
     },
-    oncreate() {
-      var _this = this;
-      _this.blog_id = JSON.parse(_this.$route.query.blog_id);
-      _this.isadmin = JSON.parse(_this.$route.query.isadmin);
+    oncreate () {
+      var _this = this
+      _this.blog_id = JSON.parse(_this.$route.query.blog_id)
+      _this.isadmin = JSON.parse(_this.$route.query.isadmin)
 
-      if(!_this.isadmin){
-        if (JSON.stringify(window.sessionStorage.getItem('username' || '[]'))!="null") {
-          _this.this_user_name = JSON.parse(window.sessionStorage.getItem('username' || '[]'));
+      if (!_this.isadmin) {
+        if (JSON.stringify(window.sessionStorage.getItem('username' || '[]')) != 'null') {
+          _this.this_user_name = JSON.parse(window.sessionStorage.getItem('username' || '[]'))
         }
-      }else{
-        if (JSON.stringify(window.sessionStorage.getItem('admin' || '[]'))=="null") {
-          _this.isadmin = false;
-        }else{
-          _this.mycomment = "管理状态下不能提交评论";
+      } else {
+        if (JSON.stringify(window.sessionStorage.getItem('admin' || '[]')) == 'null') {
+          _this.isadmin = false
+        } else {
+          _this.mycomment = '管理状态下不能提交评论'
         }
       }
-      _this.btnChangeEnable = _this.isadmin;
+      _this.btnChangeEnable = _this.isadmin
 
-      _this.$axios.post('/select/article/page',{
+      _this.$axios.post('/select/article/page', {
         blog_id: _this.blog_id,
         page: 1,
-        op: "and"
+        op: 'and'
       }).then(resp => {
         if (resp.data.code === 200) {
-          console.log(resp.data.data);
-          var datas = resp.data.data;
-          _this.content = datas[0];
-          _this.blog_user_id = datas[0].user_id;
-          _this.blog_user_name = datas[0].username;
-        }else {
+          console.log(resp.data.data)
+          var datas = resp.data.data
+          _this.content = datas[0]
+          _this.blog_user_id = datas[0].user_id
+          _this.blog_user_name = datas[0].username
+        } else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
-        _this.$axios.post('/select/comments/page',{
+        _this.$axios.post('/select/comments/page', {
           cblog_id: _this.blog_id,
           page: 1,
-          op: "and",
-          hardcond: "cblog_id"
+          op: 'and',
+          hardcond: 'cblog_id'
         }).then(resp => {
           if (resp.data.code === 200) {
-            console.log(resp.data.data);
-            var datas = resp.data.data;
-            var data0 = [];
-            for(var i = 0; i<datas.length - 1; i++){
-                data0[i] = datas[i];
+            console.log(resp.data.data)
+            var datas = resp.data.data
+            var data0 = []
+            for (var i = 0; i < datas.length - 1; i++) {
+              data0[i] = datas[i]
             }
-            _this.commentList = data0;
-            _this.pagetotal = parseInt(datas[datas.length - 1]['total']);
-          }else {
+            _this.commentList = data0
+            _this.pagetotal = parseInt(datas[datas.length - 1]['total'])
+          } else {
             _this.$alert('select failed!', {confirmButtonText: 'OK'})
           }
         }).catch(failResponse => {})
       }).catch(failResponse => {})
     },
-    page(currentPage) {
-      var _this = this;
-      _this.$axios.post('/select/comments/page',{
+    page (currentPage) {
+      var _this = this
+      _this.$axios.post('/select/comments/page', {
         cblog_id: _this.blog_id,
         page: currentPage,
-        op: "and",
-        hardcond: "cblog_id"
+        op: 'and',
+        hardcond: 'cblog_id'
       }).then(resp => {
         if (resp.data.code === 200) {
-          console.log(resp.data.data);
-          var datas = resp.data.data;
-          var data0 = [];
-          for(var i = 0; i<datas.length - 1; i++){
-              data0[i] = datas[i];
+          console.log(resp.data.data)
+          var datas = resp.data.data
+          var data0 = []
+          for (var i = 0; i < datas.length - 1; i++) {
+            data0[i] = datas[i]
           }
-          _this.commentList = data0;
-          _this.pagetotal = parseInt(datas[datas.length - 1]['total']);
-        }else {
+          _this.commentList = data0
+          _this.pagetotal = parseInt(datas[datas.length - 1]['total'])
+        } else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
       }).catch(failResponse => {})
     },
     submit () {
-      let _this = this;
-      if(_this.mycomment.length == 0){
-        _this.$alert("评论不能为空", {confirmButtonText: 'OK'});
-        return;
-      }else if(_this.mycomment.length > 200){
-        _this.$alert("评论需少于200字", {confirmButtonText: 'OK'});
-        return;
+      let _this = this
+      if (_this.mycomment.length == 0) {
+        _this.$alert('评论不能为空', {confirmButtonText: 'OK'})
+        return
+      } else if (_this.mycomment.length > 200) {
+        _this.$alert('评论需少于200字', {confirmButtonText: 'OK'})
+        return
       }
       this.$axios.post('/select/user', {
         username: _this.this_user_name
       }).then(resp => {
         if (resp.data.code === 200) {
-          var datas = resp.data.data;
-          this.getCurrentTime();
+          var datas = resp.data.data
+          this.getCurrentTime()
           this.$axios.post('/add/comment', {
-            content: this.mycomment.replace(/<[^>]+>/g,""),
+            content: this.mycomment.replace(/<[^>]+>/g, ''),
             cuser_id: datas[0].user_id,
             cblog_id: this.blog_id,
             comment_time: this.gettime
           }).then(resp => {
             if (resp.data.code === 200) {
-              this.$alert(resp.data.message, {confirmButtonText: 'OK'});
-              this.mycomment = '';
-            }else {
-              this.$alert('发布失败! 原因: '+resp.data.message, {confirmButtonText: 'OK'})
+              this.$alert(resp.data.message, {confirmButtonText: 'OK'})
+              this.mycomment = ''
+            } else {
+              this.$alert('发布失败! 原因: ' + resp.data.message, {confirmButtonText: 'OK'})
             }
           }).catch(failResponse => {})
         } else {
           this.$alert('获取当前用户ID异常！', {confirmButtonText: 'OK'})
         }
-        this.oncreate();
+        this.oncreate()
       }).catch(failResponse => {})
     },
-    ondelete(cid) {
-      var _this = this;
-      _this.$confirm("是否要删除此评论", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+    ondelete (cid) {
+      var _this = this
+      _this.$confirm('是否要删除此评论', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       }).then(() => {
-        _this.$axios.post('/delete/comment',{
+        _this.$axios.post('/delete/comment', {
           comment_id: cid
         }).then(resp => {
           if (resp.data.code === 200) {
             _this.$alert('删除成功!', {confirmButtonText: 'OK'})
-          }else {
+          } else {
             _this.$alert('删除失败!', {confirmButtonText: 'OK'})
           }
-          this.oncreate();
+          this.oncreate()
         }).catch(failResponse => {})
-      }).catch(() => {});
+      }).catch(() => {})
     },
     reportblog () {
-        console.log(this.blog_id)
-        console.log(this.blog_user_name)
-        this.$router.push({path: '/home/showarticle/Report', query: {username: this.blog_user_name, blog_id: this.blog_id, content: this.content}})
+      console.log(this.blog_id)
+      console.log(this.blog_user_name)
+      this.$router.push({path: '/home/showarticle/Report', query: {username: this.blog_user_name, blog_id: this.blog_id, content: this.content}})
     }
   }
 }
@@ -323,7 +323,7 @@ export default {
           font-size: 28px;
           line-height: 1.5;
       }
-      
+
 }
 .el-button--success{
   float: right;

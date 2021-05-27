@@ -86,244 +86,243 @@
 
 <script>
 export default {
-  name: "Selectarticle",
-  data() {
+  name: 'Selectarticle',
+  data () {
     return {
-        data0: '',
-        isuser: false,
-        pagetotal: 10,
-        pagesize: 2,
-        articleform: {
-          blog_id: '',
-          title: '',
-          describe: '',
-          text:'',
-          username: ''
-        },
-        tableData: [{
-          blog_id: '',
-          title: '',
-          describe: '',
-          text:'',
-          username:''
-        }]
+      data0: '',
+      isuser: false,
+      pagetotal: 10,
+      pagesize: 5,
+      articleform: {
+        blog_id: '',
+        title: '',
+        describe: '',
+        text: '',
+        username: ''
+      },
+      tableData: [{
+        blog_id: '',
+        title: '',
+        describe: '',
+        text: '',
+        username: ''
+      }]
     }
   },
-  created(){
-    this.oncreate();
+  created () {
+    this.oncreate()
   },
   watch: {
     '$route' (to, from) {
-      this.oncreate();
+      this.oncreate()
     }
   },
   methods: {
-    select_by_condition() {
-      let _this = this;
+    select_by_condition () {
+      let _this = this
       _this.$axios.post('/select/article', {
         blog_id: _this.articleform.blog_id,
         title: _this.articleform.title,
         describe: _this.articleform.describe,
         text: _this.articleform.text,
         username: _this.articleform.username,
-        op: "and"
+        op: 'and'
       }).then(resp => {
         if (resp.data.code === 200) {
           _this.$alert('select success!', {confirmButtonText: 'OK'})
-          console.log(resp.data.data);
-          var datas = resp.data.data;
-          var i = 0;
-          console.log(datas[1]);
-          _this.tableData = datas;
-        }else {
+          console.log(resp.data.data)
+          var datas = resp.data.data
+          var i = 0
+          console.log(datas[1])
+          _this.tableData = datas
+        } else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
       }).catch(failResponse => {})
     },
-    page(currentPage){
-      let _this = this;
-      _this.$axios.post('/select/article/page',{
+    page (currentPage) {
+      let _this = this
+      _this.$axios.post('/select/article/page', {
         blog_id: _this.articleform.blog_id,
         title: _this.articleform.title,
         describe: _this.articleform.describe,
         text: _this.articleform.text,
         username: _this.articleform.username,
         page: currentPage,
-        op: "and",
+        op: 'and',
         hardcond: 'username'
       }).then(resp => {
         if (resp.data.code === 200) {
-          console.log(resp.data.data);
-          var datas = resp.data.data;
-          var i = 0;
-          _this.data0 = [];
-          for(var i = 0; i<datas.length - 1; i++){
-              _this.data0[i] = datas[i];
+          console.log(resp.data.data)
+          var datas = resp.data.data
+          var i = 0
+          _this.data0 = []
+          for (var i = 0; i < datas.length - 1; i++) {
+            _this.data0[i] = datas[i]
           }
-          var datanew = [];
-          var keynew = {};
-          for(var key in _this.data0){
-            for(var key2 in _this.data0[key]){
-              if(Object.prototype.toString.call(_this.data0[key][key2]) === "[object String]"){
-                keynew[key2] = _this.data0[key][key2].replace(/<[^>]+>/g,"");//remove html attrib
-              }else{
-                keynew[key2] = _this.data0[key][key2];
+          var datanew = []
+          var keynew = {}
+          for (var key in _this.data0) {
+            for (var key2 in _this.data0[key]) {
+              if (Object.prototype.toString.call(_this.data0[key][key2]) === '[object String]') {
+                keynew[key2] = _this.data0[key][key2].replace(/<[^>]+>/g, '')// remove html attrib
+              } else {
+                keynew[key2] = _this.data0[key][key2]
               }
             }
-            datanew.push(keynew);
-            keynew={};
+            datanew.push(keynew)
+            keynew = {}
           }
-          _this.tableData = datanew;
-          //this.pagetotal = datas[];
-          _this.pagetotal = parseInt(datas[datas.length - 1]['total']);
-          //this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
-          console.log(_this.pagetoal);
-        }else {
+          _this.tableData = datanew
+          // this.pagetotal = datas[];
+          _this.pagetotal = parseInt(datas[datas.length - 1]['total'])
+          // this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
+          console.log(_this.pagetoal)
+        } else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
       }).catch(failResponse => {})
     },
-    oncreate(){
-      let _this = this;
-      try{
-        if(_this.$route.path == '/admin/Selectarticle'){
-          _this.isuser = false;
-        }else{
-          _this.isuser = true;
-          _this.articleform.username=JSON.parse(window.sessionStorage.getItem('username' || '[]'));
+    oncreate () {
+      let _this = this
+      try {
+        if (_this.$route.path == '/admin/Selectarticle') {
+          _this.isuser = false
+        } else {
+          _this.isuser = true
+          _this.articleform.username = JSON.parse(window.sessionStorage.getItem('username' || '[]'))
         }
-      }catch(exception){
-        console.log("no username")
+      } catch (exception) {
+        console.log('no username')
       }
       if (_this.$route.query.id !== undefined) {
-          _this.articleform.blog_id = _this.$route.query.id.toString();
+        _this.articleform.blog_id = _this.$route.query.id.toString()
       }
-      _this.$axios.post('/select/article/page',{
+      _this.$axios.post('/select/article/page', {
         blog_id: _this.articleform.blog_id,
         title: _this.articleform.title,
         describe: _this.articleform.describe,
         text: _this.articleform.text,
         username: _this.articleform.username,
         page: 1,
-        op: "and",
+        op: 'and',
         hardcond: 'username'
       }).then(resp => {
         if (resp.data.code === 200) {
-          console.log(resp.data.data);
-          var datas = resp.data.data;
-          var i = 0;
-          _this.data0 = [];
-          for(var i = 0; i<datas.length - 1; i++){
-              _this.data0[i] = datas[i];
+          console.log(resp.data.data)
+          var datas = resp.data.data
+          var i = 0
+          _this.data0 = []
+          for (var i = 0; i < datas.length - 1; i++) {
+            _this.data0[i] = datas[i]
           }
-          var datanew = [];
-          var keynew = {};
-          for(var key in _this.data0){
-            for(var key2 in _this.data0[key]){
-              if(Object.prototype.toString.call(_this.data0[key][key2]) === "[object String]"){
-                keynew[key2] = _this.data0[key][key2].replace(/<[^>]+>/g,"");//remove html attrib
-              }else{
-                keynew[key2] = _this.data0[key][key2];
+          var datanew = []
+          var keynew = {}
+          for (var key in _this.data0) {
+            for (var key2 in _this.data0[key]) {
+              if (Object.prototype.toString.call(_this.data0[key][key2]) === '[object String]') {
+                keynew[key2] = _this.data0[key][key2].replace(/<[^>]+>/g, '')// remove html attrib
+              } else {
+                keynew[key2] = _this.data0[key][key2]
               }
             }
-            datanew.push(keynew);
-            keynew={};
+            datanew.push(keynew)
+            keynew = {}
           }
-          _this.tableData = datanew;
-          //this.pagetotal = datas[];
-          _this.pagetotal = parseInt(datas[datas.length - 1]['total']);
-          //this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
-          console.log(_this.pagetoal);
-        }else {
+          _this.tableData = datanew
+          // this.pagetotal = datas[];
+          _this.pagetotal = parseInt(datas[datas.length - 1]['total'])
+          // this.pagetoal = this.pagesize * parseInt(datas[datas.length - 1]['total']);
+          console.log(_this.pagetoal)
+        } else {
           _this.$alert('select failed!', {confirmButtonText: 'OK'})
         }
       }).catch(failResponse => {})
     },
-    cleandata(){
-      let _this = this;
-      _this.articleform.blog_id = '';
-      _this.articleform.title = '';
-      _this.articleform.describe = '';
-      _this.articleform.text = '';
-      _this.articleform.username = '';
+    cleandata () {
+      let _this = this
+      _this.articleform.blog_id = ''
+      _this.articleform.title = ''
+      _this.articleform.describe = ''
+      _this.articleform.text = ''
+      _this.articleform.username = ''
     },
     handleShow: function (index, row) {
-      let _this = this;
-      console.log(row);
-      if(this.isuser){
-        _this.$router.push({path: '/home/showarticle', query: {blog_id: this.data0[index].blog_id, isadmin: !this.isuser}});
-      }else{
-        _this.$router.push({path: '/admin/showarticle', query: {blog_id: this.data0[index].blog_id, isadmin: !this.isuser}});
+      let _this = this
+      console.log(row)
+      if (this.isuser) {
+        _this.$router.push({path: '/home/showarticle', query: {blog_id: this.data0[index].blog_id, isadmin: !this.isuser}})
+      } else {
+        _this.$router.push({path: '/admin/showarticle', query: {blog_id: this.data0[index].blog_id, isadmin: !this.isuser}})
       }
     },
     handleEdit: function (index, row) {
-      let _this = this;
-      console.log(row);
-      if(this.isuser){
-        _this.$router.push({path: '/home/Fixarticle', query: {data: this.data0[index], admin: false}});
-      }else{
-        _this.$router.push({path: '/admin/Fixarticle', query: {data: this.data0[index], admin: true}});
+      let _this = this
+      console.log(row)
+      if (this.isuser) {
+        _this.$router.push({path: '/home/Fixarticle', query: {data: this.data0[index], admin: false}})
+      } else {
+        _this.$router.push({path: '/admin/Fixarticle', query: {data: this.data0[index], admin: true}})
       }
     },
     handleDelete: function (index, row) {
-      let _this = this;
-      console.log(row);
-      _this.$confirm("是否要删除此文章", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+      let _this = this
+      console.log(row)
+      _this.$confirm('是否要删除此文章', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       }).then(() => {
         _this.$axios.post('/delete/article', {
           blog_id: row.blog_id
         }).then(resp => {
           if (resp.data.code === 200) {
             _this.$alert('删除成功!', {confirmButtonText: 'OK'})
-          }else {
+          } else {
             _this.$alert('删除失败!', {confirmButtonText: 'OK'})
           }
-          _this.$axios.post('/select/article/page',{
+          _this.$axios.post('/select/article/page', {
             blog_id: _this.articleform.blog_id,
             title: _this.articleform.title,
             describe: _this.articleform.describe,
             text: _this.articleform.text,
             username: _this.articleform.username,
             page: 1,
-            op: "and",
+            op: 'and',
             hardcond: 'username'
           }).then(resp => {
             if (resp.data.code === 200) {
-              console.log(resp.data.data);
-              var datas = resp.data.data;
-              var i = 0;
-              _this.data0 = [];
-              for(var i = 0; i<datas.length - 1; i++){
-                  _this.data0[i] = datas[i];
+              console.log(resp.data.data)
+              var datas = resp.data.data
+              var i = 0
+              _this.data0 = []
+              for (var i = 0; i < datas.length - 1; i++) {
+                _this.data0[i] = datas[i]
               }
-              var datanew = [];
-              var keynew = {};
-              for(var key in _this.data0){
-                for(var key2 in _this.data0[key]){
-                  if(Object.prototype.toString.call(_this.data0[key][key2]) === "[object String]"){
-                    keynew[key2] = _this.data0[key][key2].replace(/<[^>]+>/g,"");//remove html attrib
-                  }else{
-                    keynew[key2] = _this.data0[key][key2];
+              var datanew = []
+              var keynew = {}
+              for (var key in _this.data0) {
+                for (var key2 in _this.data0[key]) {
+                  if (Object.prototype.toString.call(_this.data0[key][key2]) === '[object String]') {
+                    keynew[key2] = _this.data0[key][key2].replace(/<[^>]+>/g, '')// remove html attrib
+                  } else {
+                    keynew[key2] = _this.data0[key][key2]
                   }
                 }
-                datanew.push(keynew);
-                keynew={};
+                datanew.push(keynew)
+                keynew = {}
               }
-              _this.tableData = datanew;
-              //this.pagetotal = datas[];
-              _this.pagetoal = _this.pagesize * parseInt(datas[datas.length - 1]['total']);
-              console.log(_this.pagetoal);
-            }else {
+              _this.tableData = datanew
+              // this.pagetotal = datas[];
+              _this.pagetoal = _this.pagesize * parseInt(datas[datas.length - 1]['total'])
+              console.log(_this.pagetoal)
+            } else {
               _this.$alert('select failed!', {confirmButtonText: 'OK'})
             }
           }).catch(failResponse => {})
         }).catch(failResponse => {})
-      }).catch(() => {});
+      }).catch(() => {})
     }
   }
 }
 </script>
-

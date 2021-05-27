@@ -4,7 +4,7 @@
       title="修改用户信息"
       :visible.sync="dialogFormVisible"
       @close="clear">
-      <el-form v-model="form" style="text-align: left" ref="dataForm">
+      <el-form v-model="form" style="text-align: left" ref="form">
         <el-form-item label="电话" :label-width="formLabelWidth" prop="phone_number">
           <el-input v-model="form.phone_number" autocomplete="off"></el-input>
         </el-form-item>

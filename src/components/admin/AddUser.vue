@@ -84,8 +84,9 @@ export default{
             this.$alert('注册成功', '提示', {
               confirmButtonText: '确定'
             })
-            var path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
+            // var path = _this.$route.query.redirect
+            // _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
+            _this.$router.push({path: '/admin/Selectuser'})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

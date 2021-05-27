@@ -11,7 +11,7 @@
                 auto-complete="off" :placeholder="userInfo.username"></el-input>
     </el-form-item>
     <el-form-item prop="phone">
-      <el-input type="text" v-model="fixInfo.phone"
+      <el-input type="text" v-model="fixInfo.phone" prop="phone"
                 auto-complete="off" :placeholder="userInfo.phone"></el-input>
     </el-form-item>
     <el-form-item prop="old_password">
@@ -102,7 +102,6 @@ export default {
     admin_fix (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('success')
           if (this.fixInfo.password != '') {
           }
           this.$axios.post('/fix/admin', {

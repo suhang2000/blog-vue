@@ -17,8 +17,17 @@
           </span>
           <avatar-form @onChange="loadUser()" ref="ava"></avatar-form>
         </div>
-        <el-button type="success" style="margin-top: 50px" @click="editUser()">修改信息</el-button>
+        <verify-info ref="verify" @verified="afterVefified"></verify-info>
+        <el-button type="success" style="margin-top: 50px" @click="editUser()">修改个人信息</el-button>
+        <el-dropdown @command="handleCommand">
+          <el-button type="warning">修改验证信息<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="name">修改昵称</el-dropdown-item>
+            <el-dropdown-item command="email">修改邮箱</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
         <user-form @onSubmit="loadUser()" ref="edit"></user-form>
+        <name-change @changeName="logout" ref="nameChange"></name-change>
       </el-aside>
       <el-main>
         <p class="user" align="left">id: {{user.user_id}}</p>
@@ -31,6 +40,7 @@
         <br>
         <p class="user" align="left">性别: {{user.gender}}</p>
         <br>
+        <el-button @click="afterVefified">verified</el-button>
       </el-main>
     </el-container>
   </div>
@@ -39,14 +49,18 @@
 <script>
 import UserForm from './UserForm'
 import AvatarForm from './avatarForm'
+import VerifyInfo from './VerifyInfo'
+import NameChange from './NameChange'
 export default {
   name: 'UserInfo',
-  components: {AvatarForm, UserForm},
+  components: {NameChange, VerifyInfo, AvatarForm, UserForm},
   data () {
     return {
       user: {
-        profile_photo: '../static/avatar/16.jpg'
-      }
+        // profile_photo: '../static/avatar/16.jpg'
+      },
+      isVerified: false,
+      com: ''
     }
   },
   methods: {
@@ -72,6 +86,28 @@ export default {
     changeAvatar () {
       this.$refs.ava.dialogVisible = true
       this.$refs.ava.imageURL = this.user.profile_photo
+    },
+    verifyEmail () {
+      this.$refs.verify.dialogVisible = true
+      this.$refs.verify.email = this.user.email
+    },
+    handleCommand (command) {
+      this.verifyEmail()
+      this.com = command
+    },
+    afterVefified () {
+      this.isVerified = true
+      console.log(this.isVerified)
+      this.com = 'name'
+      if (this.com === 'name') {
+        console.log('change your name')
+        this.$refs.nameChange.dialogVisible = true
+        this.$refs.nameChange.username = this.user.username
+      }
+    },
+    logout () {
+      this.$store.commit('logout')
+      this.$router.push('/login')
     }
     // getImgUrl (src) {
     //   return require('@/assets/avatar/' + src)

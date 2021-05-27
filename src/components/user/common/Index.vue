@@ -42,7 +42,7 @@ export default {
     return {
       isall: true,
       pagetotal: 0,
-      pagesize: 2,
+      pagesize: 5,
       articleform: {
         title: '',
         text: '',
