@@ -45,6 +45,10 @@ export default {
             this.$message(resp.data.message)
             this.dialogVisible = false
             this.$emit('changeEmail')
+            this.$message({
+              type: 'success',
+              message: '修改成功'
+            })
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

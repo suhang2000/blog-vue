@@ -24,13 +24,19 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="name">修改昵称</el-dropdown-item>
             <el-dropdown-item command="email">修改邮箱</el-dropdown-item>
+            <el-dropdown-item command="password">修改密码</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <user-form @onSubmit="loadUser()" ref="edit"></user-form>
         <name-change @changeName="logout" ref="nameChange"></name-change>
         <email-change @changeEmail="loadUser" ref="emailChange"></email-change>
+        <password-change @changePassword="logout" ref="passwordChange"></password-change>
       </el-aside>
       <el-main>
+         <el-card style lang="scss" class="box-card  "  >
+  <div slot="header" class="clearfix" >
+    <span style="font-size:20px">这是{{user.username}}的个人信息</span>
+  </div>
         <p class="user" align="left">id: {{user.user_id}}</p>
         <br>
         <p class="user" align="left">昵称: {{user.username}}</p>
@@ -42,6 +48,7 @@
         <p class="user" align="left">性别: {{user.gender}}</p>
         <br>
 <!--        <el-button @click="afterVefified">verified</el-button>-->
+         </el-card>
       </el-main>
     </el-container>
   </div>
@@ -53,9 +60,10 @@ import AvatarForm from './avatarForm'
 import VerifyInfo from './VerifyInfo'
 import NameChange from './NameChange'
 import EmailChange from './EmailChange'
+import PasswordChange from './PasswordChange'
 export default {
   name: 'UserInfo',
-  components: {EmailChange, NameChange, VerifyInfo, AvatarForm, UserForm},
+  components: {EmailChange, NameChange, VerifyInfo, AvatarForm, UserForm,PasswordChange},
   data () {
     return {
       user: {
@@ -110,6 +118,11 @@ export default {
         this.$refs.emailChange.dialogVisible = true
         this.$refs.emailChange.email = this.user.email
       }
+      if (this.com === 'password') {
+        console.log('change your password')
+        this.$refs.passwordChange.dialogVisible =  true
+        this.$refs.passwordChange.pass = this.user.password
+      }
     },
     logout () {
       this.$store.commit('logout')
@@ -132,5 +145,14 @@ export default {
   .user {
     font-size: x-large;
     font-family: 华文行楷;
+  }
+  .box-card {
+    min-width: 380px;
+    margin-right: 0px;
+    margin-top: 0%;
+    height: 580px;
+    width: 500px;
+    background: transparent !important;
+
   }
 </style>
