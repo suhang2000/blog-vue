@@ -26,8 +26,8 @@
       <el-input type="text" v-model="regisForm.phone_number"
                 auto-complete="off" placeholder="电话号码（选填）"></el-input>
     </el-form-item>
-    <el-radio v-model="regisForm.gender" label="F">男</el-radio>
-    <el-radio v-model="regisForm.gender" label="M">女</el-radio>
+    <el-radio v-model="regisForm.gender" label="男">男</el-radio>
+    <el-radio v-model="regisForm.gender" label="女">女</el-radio>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
     </el-form-item>
@@ -74,7 +74,7 @@ export default{
         .post('/register/user', {
           username: this.regisForm.username,
           user_password: this.regisForm.user_password,
-          phone_number: this.regisForm.phone,
+          phone_number: this.regisForm.phone_number,
           email: this.regisForm.email,
           profile_photo: this.regisForm.profile_photo,
           gender: this.regisForm.gender
