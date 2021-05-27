@@ -73,6 +73,10 @@ export default {
           if (resp.status === 200) {
             _this.dialogVisible = false
             _this.$emit('onChange')
+            this.$message({
+              type: 'success',
+              message: '修改成功'
+            })
           }
         })
     },

@@ -4,7 +4,7 @@
       title="修改用户信息"
       :visible.sync="dialogFormVisible"
       @close="clear">
-      <el-form v-model="form" style="text-align: left" ref="form">
+      <el-form v-model="form" :rules="rules"style="text-align: left" ref="form">
         <el-form-item label="电话" :label-width="formLabelWidth" prop="phone_number">
           <el-input v-model="form.phone_number" autocomplete="off"></el-input>
         </el-form-item>
@@ -35,7 +35,7 @@ export default {
     return {
       rules: {
         // uname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
-        phone_number: [{validator: validatePhone, trigger: 'blur'}]
+        phone_number: [{required: true, validator: validatePhone, trigger: 'blur'}]
         // email: [{required: true, validator: validateEmail, trigger: 'blur'}]
       },
       dialogFormVisible: false,
@@ -69,6 +69,10 @@ export default {
           if (resp && resp.status === 200) {
             this.dialogFormVisible = false
             this.$emit('onSubmit')
+            this.$message({
+              type: 'success',
+              message: '修改成功'
+            })
           }
         })
     },

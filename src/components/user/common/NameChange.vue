@@ -45,6 +45,7 @@ export default {
             this.$message(resp.data.message)
             this.dialogVisible = false
             this.$emit('changeName')
+
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
