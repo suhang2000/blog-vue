@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div style="text-align:center">
+    <ul>
+    <el-button type="success" class="btn-success" @click="$router.back(-1)">返回</el-button>
+    </ul>
+    </div>
     <br>
     <quillEditor
       v-model="articleform.title"
@@ -195,3 +200,11 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.el-button--success{
+  float: right;
+  padding-top: 10px;
+  margin-right: 20px;
+}
+</style>

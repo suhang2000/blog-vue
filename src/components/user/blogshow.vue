@@ -1,5 +1,10 @@
 <template>
    <div class="editor_wrap" style="align:center">
+    <div style="text-align:center">
+    <ul>
+    <el-button type="success" class="btn-success" @click="$router.back(-1)">返回</el-button>
+    </ul>
+    </div>
     <br>
     <h1 class="title">{{content.title}}</h1>
     <p style="color: rgba(0,0,0,.75)">{{content.username}}  <i> 创建于 </i>  {{content.public_time}}</p>
@@ -318,5 +323,11 @@ export default {
           font-size: 28px;
           line-height: 1.5;
       }
+      
+}
+.el-button--success{
+  float: right;
+  padding-top: 10px;
+  margin-right: 20px;
 }
 </style>
