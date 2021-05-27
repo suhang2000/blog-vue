@@ -30,7 +30,7 @@ export default {
     return {
       rules: {
         name: [{required: true, message: '账号不能为空', trigger: 'blur'}],
-        password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
+        user_password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
       },
       loginForm: {
         name: '',
