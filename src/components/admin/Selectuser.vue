@@ -11,8 +11,8 @@
       <el-input v-model="regisForm.phone" maxlength="11" show-word-limit placeholder="请输入电话"></el-input>
       </el-col>
       <el-select v-model="regisForm.gender" placeholder="请选择性别">
-        <el-option label="男" value="M"></el-option>
-        <el-option label="女" value="F"></el-option>
+        <el-option label="男" value="男"></el-option>
+        <el-option label="女" value="女"></el-option>
       </el-select>
       <el-button type="primary" icon="el-icon-search" @click="page(1)">搜索</el-button>
       <el-button type="primary" icon="el-icon-delete" @click="cleandata"></el-button>
@@ -22,10 +22,9 @@
     border
     style="width: 100%">
     <el-table-column
-      fixed
       prop="user_id"
       label="ID"
-      width="300">
+      width="240">
     </el-table-column>
     <el-table-column
       prop="username"
@@ -38,19 +37,27 @@
       width="240">
     </el-table-column>
     <el-table-column
-      prop="gender"
-      label="性别"
+      prop="email"
+      label="邮箱"
       width="240">
     </el-table-column>
     <el-table-column
-      label="操作"
-      width="330">
+      prop="gender"
+      label="性别"
+      width="200">
+    </el-table-column>
+    <el-table-column
+      label="操作">
       <template slot-scope="scope">
-        <el-button type="text" @click="handleEdit(scope.$index, scope.row)" size="medium">编辑</el-button>
-        <el-button type="text" @click="handleDelete(scope.$index, scope.row)" size="medium">删除</el-button>
+        <el-button type="text" @click="handleEdit(scope.$index, scope.row)" size="medium">修改基本信息</el-button>
+        <el-button type="text" @click="editName(scope.$index, scope.row)" size="medium">修改用户名</el-button>
+        <el-button type="text" @click="verifyEmail(scope.$index, scope.row)" size="medium">修改邮箱</el-button>
+        <el-button type="text" @click="handleDelete(scope.$index, scope.row)" size="medium">删除用户</el-button>
       </template>
     </el-table-column>
   </el-table>
+    <email-change @changeEmail="load_user" ref="emailChange"></email-change>
+    <name-change @changeName="load_user" ref="nameChange"></name-change>
   <el-pagination
       background
       layout="prev, pager, next"
@@ -65,8 +72,11 @@
 </style>
 
 <script>
+import EmailChange from '../user/common/EmailChange'
+import NameChange from '../user/common/NameChange'
 export default {
   name: 'Selectuser',
+  components: {NameChange, EmailChange},
   data () {
     return {
       pagetotal: 10,
@@ -82,7 +92,8 @@ export default {
         user_id: '',
         username: '',
         phone_number: '',
-        gender: ''
+        gender: '',
+        email: ''
       }]
     }
   },
@@ -183,6 +194,16 @@ export default {
         this.$alert(resp.data.message, {confirmButtonText: 'OK'})
         this.load_user()
       }).catch(failResponse => {})
+    },
+    verifyEmail (index, row) {
+      this.$refs.emailChange.dialogVisible = true
+      this.$refs.emailChange.email = row.email
+      this.$refs.emailChange.username = row.username
+    },
+    editName (index, row) {
+      this.$refs.nameChange.dialogVisible = true
+      this.$refs.nameChange.username = row.username
+      this.$refs.nameChange.username_ori = row.username
     }
   }
 }

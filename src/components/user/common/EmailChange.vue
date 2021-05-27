@@ -25,7 +25,8 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      email: ''
+      email: '',
+      username: this.$store.state.username
     }
   },
   methods: {
@@ -37,7 +38,7 @@ export default {
       console.log(_this.email)
       this.$axios
         .post('/changeemail', {
-          username: _this.$store.state.username,
+          username: _this.username,
           email: _this.email
         })
         .then(resp => {

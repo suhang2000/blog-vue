@@ -67,7 +67,7 @@ export default {
 .regis-container {
     border-radius: 15px;
     background-clip: padding-box;
-    margin: 90px auto;
+    margin: 10% 25%;
     width: 350px;
     padding: 35px 35px 15px 35px;
     background: #fff;

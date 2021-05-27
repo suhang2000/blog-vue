@@ -26,6 +26,7 @@
 <!--          <el-option label="女" value="女"></el-option>-->
 <!--        </el-select>-->
     <el-form-item style="width: 100%; margin-top: 20px">
+      <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="$router.back(-1)">返回</el-button>
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="user_fix('fixInfo')">修改</el-button>
     </el-form-item>
   </el-form>

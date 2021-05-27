@@ -8,9 +8,9 @@
               {{ item.navItem }}
             </el-menu-item>
       </el-submenu>
-      <el-menu-item index="2">
+      <el-menu-item index="2" @click="logout">
         <i class="el-icon-switch-button"></i>
-        <span slot="title" @click="logout">登出</span>
+        <span slot="title">登出</span>
       </el-menu-item>
     </el-menu>
   </el-aside>

@@ -25,7 +25,8 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      username: ''
+      username: '',
+      username_ori: this.$store.state.username
     }
   },
   methods: {
@@ -36,7 +37,7 @@ export default {
       const _this = this
       this.$axios
         .post('/changename', {
-          username: _this.$store.state.username,
+          username: _this.username_ori,
           username_new: _this.username
         })
         .then(resp => {
