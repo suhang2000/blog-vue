@@ -29,6 +29,7 @@
     <el-radio v-model="regisForm.gender" label="男">男</el-radio>
     <el-radio v-model="regisForm.gender" label="女">女</el-radio>
     <el-form-item style="width: 100%">
+      <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="$router.back(-1)">返回</el-button>
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
     </el-form-item>
   </el-form>

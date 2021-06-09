@@ -27,6 +27,7 @@
                 auto-complete="off" placeholder="确认密码" show-password></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
+      <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="$router.back(-1)">返回</el-button>
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="admin_fix('fixInfo')">修改</el-button>
     </el-form-item>
   </el-form>

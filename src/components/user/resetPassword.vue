@@ -8,6 +8,7 @@
                 auto-complete="off" placeholder="邮箱"></el-input>
     </el-form-item>
     <el-row>
+      <el-button type="primary" style="width: 25%;background: #505458;border: none" @click="$router.back(-1)">返回</el-button>
       <el-button type="primary" class="el-icos-n-user-solid" style="width: 25%;background: #505458;border: none" @click="validate_user_reset('resetForm')">发送邮件</el-button>
     </el-row>
   </el-form>
